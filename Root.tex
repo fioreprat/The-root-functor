@@ -1,5 +1,5 @@
 \documentclass[a4paper, 10pt, reqno, dvipsnames]{amsart}
-
+\usepackage[margin=1cm]{geometry}
 \usepackage[utf8]{inputenc}
 
 \usepackage{microtype}
@@ -380,60 +380,87 @@ plainpages=true
 \tableofcontents
 
 \section*{Introduction and main results}
-\subsection*{Introduction}
-\noindent Operads were introduced by May \cite{M:TGILS} and Boardman-Vogt \cite{BV:HIASTS} in order to describe the up-to-homotopy algebraic structures on iterated loop spaces. In modern homotopy theory, one works with topological spaces up to weak homotopy equivalence, and for this purpose the language of \emph{$\infty$-operads} offers a tractable way to articulate homotopy-coherence. The theory of $\infty$-operads has led to advancements in mathematical questions that predate its formulation (\cite{GW:EPOVITII}, \cite{W:EPOVITI}, \cite{BdBW:MCHS}, \cite{KK:IOFEC}, \cite{Lu:HA}). 
+\noindent Localization of $\infty$-categories is a central construction in homotopy theory. Given
+an $\infty$-category $\cC$ and a class of maps $\cW$, thought of as weak equivalences,
+we can construct an $\infty$-category $\cC[\cW^{-1}]$ obtained by freely inverting
+the arrows in $\cW$. Combining the results of Barwick--Kan \cite{BK:RCAMHTHT} and Mazel-Gee \cite{MG:URN}, the localization of the nerve of a relative category, i.e. a discrete category with a choice of weak equivalences, induces an equivalence of $\infty$-categories between that of $\infty$-categories and that of relative categories.
+Joyal's \emph{delocalization theorem}, formulated in \cite[\S13.6]{J:NQC} and proven
+by Stevenson \cite{Ste:CMSSL}, gives a homotopy inverse for this equivalence. It is an explicit construction which makes use of the model of quasicategories. Indeed, to any simplicial set $X$ one has associated its \emph{category of elements} $\Delta/X$ : its objects are the simplices of $X$, that is maps $([n],\alpha\colon \Delta^n \to X)$, and morphisms are commutative triangles. Joyal's delocalization theorem states the following
 
-\noindent Intuitively, a (colored) $\infty$-operad $\cP$ is given by a set of objects and, for any choice of objects $x_1,\dots,x_n,y$ , a space of operations $\cP(x_1,\dots,x_n; y)$, together with operadic partial composition laws  
-$$ \circ_{x_i}\colon P(x_1,\dots,x_k;y) \times P(z_1,\dots,z_m; x_i)\longrightarrow P(x_1,\dots,x_{i-1}, z_1,\dots,z_m,x_{i+1},\dots,x_k;y)$$ equivariant with respect to some specified action of the symmetric groups given by 'permuting the variables'. 
-%More generally, we allow what we call operad $P$, and what is often called \emph{colored operad} or \emph{multicategory}, to have a set of objects $\mathsf{Ob}(P)$ and, for each $k\geq 0$, a space of operations (later specified as a simplicial set) $P(x_1,\dots, x_k;y)$ for any objects $x_1,\dots,x_k,y$ 
-%(in the one-object case, we write $P(k)$ for $P(\underbrace{\ast, \dots, \ast}_{k}; \ast)$). These come equipped with unital and associative operadic composition laws operadic composition laws $$ \circ_{x_i}\colon P(x_1,\dots,x_k;y) \times P(z_1,\dots,z_m; x_i)\longrightarrow P(x_1,\dots,x_{i-1}, z_1,\dots,z_m,x_{i+1},\dots,x_k;y),$$ 
+\begin{theorem*}[Joyal, Stevenson]
+	There is a natural transformation of simplicial sets
+	$$\ell_X\colon \cN(\Delta/X) \longrightarrow X, \quad ([n],\alpha)\mapsto\alpha(n),$$
+	sending each simplex to its last vertex, which is a weak categorical equivalence
+	upon localizing $\cN(\Delta/X)$ at the preimage of the identities.
+\end{theorem*}
+
+\noindent In the context of \emph{higher algebra}, that is the study of algebraic structures in $\infty$-categories,  of key interests becomes the localization for $\infty$-operads. These latter generalize $\infty$-categories as colored operads, or multicategories, generalize ordinary categories by
+allowing operations with multiple inputs \cite{M:TGILS, BV:HIASTS}. In fact, the language of
+$\infty$-operads precisely allows to lift this structure to the homotopy-coherent setting,
+providing a convenient framework for organizing algebraic structures in modern homotopy
+theory \cite{GW:EPOVITII, W:EPOVITI, BdBW:MCHS, KK:IOFEC, Lu:HA}.
+
+\noindent Informally, an $\infty$-operad $\cP$ consists of a collection of objects and, for every
+choice of objects $x_1,\dots,x_n,y$, a space, or homotopy type, of operations $\cP(x_1,\dots,x_n;y)$,
+together with operadic partial composition laws
+$$
+\circ_{x_i}\colon 
+\cP(x_1,\dots,x_k;y)\times \cP(z_1,\dots,z_m;x_i)
+\longrightarrow 
+\cP(x_1,\dots,x_{i-1},z_1,\dots,z_m,x_{i+1},\dots,x_k;y),
+$$ which are well defined only 'up to homotopy' and
+compatible with the symmetric group actions permuting the inputs. We say that $\cP$ is \emph{discrete} if it is $0$-truncated,
+i.e.\ if all spaces of operations are sets. The dendroidal formalism
+\cite{MW:DS, CM:DSMHO} models $\infty$-operads as certain presheaves on a category $\Omega$
+of trees (\cite{MW:DS}), and is in direct analogy with simplicial sets for quasicategories. They are a model for $\infty$-operads as simplicial sets and quasicategories are for  $\infty$-categories (\cite{CM:DSMHO}). The composition $p\circ_{x_1}q$ of two multimorphisms of a quasioperad looks like a section of two natural transformations obtained as
 
 
 \begin{figure}[h]
 	\centering
 	
-	\adjustbox{scale=0.5,center}{%
-		\begin{tikzcd}
-			&                                                &     &                         &                                                &                                       &  & x_1 \arrow[rrdd, no head] & z_1 \arrow[rd, no head] &                                                  & z_2 & x_3 \\
-			x_1 \arrow[rd, no head] & x_2 \arrow[d, no head]                         & x_3 & z_1 \arrow[rd, no head] &                                                & z_2                                   &  &                           &                         & \bullet \arrow[ru, no head] \arrow[d, no head]   &     &     \\
-			& \bullet \arrow[ru, no head] \arrow[d, no head] &     &                         & \bullet \arrow[ru, no head] \arrow[d, no head] & {} \arrow[rr, "\circ_{x_2}", maps to] &  & {}                        &                         & \bullet \arrow[rruu, no head] \arrow[d, no head] &     &     \\
-			& y                                            &     &                         & x_2                                            &                                       &  &                           &                         & y                                            &     &    
-		\end{tikzcd}
+	\adjustbox{scale=0.63,center}{%
+
+\begin{tikzcd}
+	&                                                &     &                         &                                                &                                           &  & z_1 &                                                                                        & z_2                                              &  & x_2           &  &                         &                                                                   &     \\
+	x_1 \arrow[rd, no head] &                                                & x_2 & z_1 \arrow[rd, no head] &                                                & z_2                                       &  &     & \bullet \ q \ \arrow[rd, "x_1" description, no head] \arrow[lu, no head] \arrow[ru, no head] &                                                  &  &               &  & z_1 \arrow[rd, no head] & z_2                                                               & x_2 \\
+	& \bullet \ p \  \arrow[ru, no head] \arrow[d, no head] &     &                         & \bullet \ q \arrow[ru, no head] \arrow[d, no head] & \quad\quad \arrow[rrr, dashed, bend left] &  &     & \quad\quad\quad\quad \arrow[lll]                                                       & \bullet \ p \arrow[rruu, no head] \arrow[d, no head] &  & {} \arrow[rr] &  & {}                      & \bullet \ p\circ_{x_1}q \arrow[u, no head] \arrow[ru, no head] \arrow[d, no head] &     \\
+	& y                                              &     &                         & x_1                                            &                                           &  &     &                                                                                        & y                                                &  &               &  &                         & y                                                                 &    
+\end{tikzcd}
+
 	}
-	\caption{A graphical representation of the operadic composition $\circ_{x_2}$.}\label{figure}
+%\caption{A graphical representation of the operadic composition $\circ_{x_1}$.}\label{figure}
 \end{figure}
-\noindent A $\cP$-algebra is a family of spaces $F=\{F(x)\}_{x \in \mathsf{Ob}(P)}$ on which the operad acts via homotopy coherent maps $$ P(x_1,\dots,x_n; y)\longrightarrow \mathsf{Map}(F(x_1)\times \dots \times F(x_n); F(y)).$$
-\noindent We say that $\cP$ is \emph{discrete} if it is $0$-truncated, that is, if its spaces of operations are sets.
 
+\noindent The localization of an $\infty$-operad $\cP$ at a class of morphisms $\cW$ is defined by a universal property analogous to that for categories. In particular, the $\infty$-category of $\cP[\cW]^{-1}$-algebras is the full subcategory of $\cP$-algebras
+sending the morphisms in $\cW$ to equivalences, the \emph{locally constant algebras}.
+This perspective appears naturally in the study of the little $n$-disks operad
+$\mathbb{E}_n$: by \cite[Theorem~5.4.5.9]{Lu:HA}, $\mathbb{E}_n$ is equivalent to
+the localization of the discrete operad of disks in $\mathbb{R}^n$ via the canonical
+map $\cN\mathsf{Disk}_n^\otimes \longrightarrow \mathbb{E}_n$, a foundational result
+for factorization homology\footnote{
+In fact, Lurie makes use of the notion of \emph{weak approximation} of $\infty$-operads ; this is closely related to operadic localization but an explicit comparison has not been given yet.}. Analogous statements hold for disk operads on stratified
+or framed manifolds \cite{AFT:FHSS, KSW:ACFA}, playing a key role in identifying certain colimits and establishing the existence of operadic Kan extensions.
 
-%\noindent Intuitively, a (colored) $\infty$-operad $\cP$ is given by a set of objects and, for any choice of objects $x_1,\dots,x_n,y$ , a space of operations $\cP(x_1,\dots,x_n; y)$, together with operadic partial composition laws $$ \circ_i \colon\cP(z_1,\dots,z_m; x_i)\times \cP(x_1,\dots,x_n; y)\longrightarrow \cP(x_1,\dots,x_{i-1},z_1,\dots,z_m, x_{i+1},\dots,x_n; y)$$ which are well defined only up to homotopy. An \emph{algebra} over an $\infty$-operad is a family of spaces, or more generally objects of symmetric monoidal categories with weak equivalences, on which the operad acts. 
+\noindent Our guiding question is the following.
 
-%Formally, an $\infty$-operad can be realized in different yet equivalent ways. The most intuitive model is perhaps the one given by a Bergner-style model structure on simplicial operads, with weak equivalences given by Dwyer-Kan weak equivalences, studied by Cisinski-Moerdijk in \cite{CM:DSSO} and Robertson in \cite{R:HTSEM}. There are less rigid models which are sometimes easier to manipulate from the homotopy-invariant point of view, as for instance via Moerdijk-Weiss quasioperads \cite{MW:DS}, Cisinski-Moerdijk complete dendroidal Segal spaces \cite{CM:DSSIO}, and Lurie's $\infty$-category of operators $\cP^\otimes$ \cite{Lu:HA}. The first proof that these models are equivalent arised as a combination of the results of  Barwick \cite{B:FOCHO} and Heuts-Hinich-Moerdijk \cite{HHM:ELMDMIO}. More recently, a direct equivalence between dendroidal and Lurie's $\infty$-operads has been established by Hinich-Moeridjk in \cite{HM:OELIODIO}.
+\begin{center}
+	\emph{\textbf{Question}. Can we generalize Joyal's delocalization theorem to $\infty$-operads and prove
+		that every $\infty$-operad is equivalent to a localization of a discrete one?}
+\end{center}
 
-\noindent Given an $\infty$-operad $\cP$ and a class of unary morphisms $\cW$, the \emph{localization} of $\cP$ at $\cW$ is the $\infty$-operad $\cL_\cW \cP$ obtained by freely inverting the arrows in $\cW$. 
-%with a morphism $\lambda\colon \cP \to \cL_\cW \cP$ sending $\cW$ to equivalences, initial with this property. 
-Expressing an $\infty$-operad $\cQ$ as a localization $\cL_\cW \cP$ can allow to infer properties of $\cQ$ from those of $\cP$, notably about the $\infty$-categories of algebras over the operads. %n particular, formally one knows that the $\infty$-category of $\cQ$ algebras is equivalent to that of those $\cP$-algebras which send $\cW$ to equivalences --also referred to as \emph{locally constant algebras}.
+\noindent In this paper, we give a positive answer and expand on the study of
+dendroidal localization and its relation with un/straightening theorems, in particular with dendroidal left fibrations. A more precise overview of
+our results is given in the next section.
 
-\noindent Localization of $\infty$-operads can be approached from two sides. First, it can be seen as a generalization of localization of $\infty$-categories, in light of the fully faithful inclusion ${\Cat_\infty \hookrightarrow \Op_\infty}$. Second, it can be used to deduce descriptions of the $\infty$-category of algebras over an $\infty$-operads as some 'locally constant' one over another. In this regard, localization plays for instance an important role in the theory of $\mathbb{E}_n$-algebras, factorization algebras and factorization homology. In its simplest form, operadic localization appears in the relationship between the little $n$-disks operad $\mathbb{E}_n$ and the discrete operad of disks $\mathsf{Disk}_n$. By \cite[Theorem 5.4.5.9]{Lu:HA}, the natural map of $\infty$-operads $\cN\mathsf{Disk}_n^\otimes \to \mathbb{E}_n$ is a localization at the preimage $\cJ$ of equivalences, inducing an equivalence $\alg_{\mathbb{E}_n}\simeq\alg^\cJ_{\mathsf{Disk}_n}$; analogous statements hold for disk operads on $n$-(stratified, framed) manifolds (see \cite{AFT:FHSS}, \cite{KSW:ACFA}) and are crucial for identifying certain colimits and operadic Kan extensions.
-
-\noindent It is natural to ask whether this behaviour is specific to little disks operads or holds more generally for \emph{every} $\infty$-operad. To answer to this question, we go back to the perspective of $\infty$-operads as a generalization of $\infty$-categories. By \emph{Joyal's delocalization theorem}, formulated in \cite[\S 13.6]{J:NQC} by Joyal (a first construction of the map appearing in \cite[\S 1.6]{Wa:AKTSAGT}) and proven by Stevenson in \cite{Ste:CMSSL}, we know that it always happens that an $\infty$-category is equivalent to the localization of a discrete one\todo[color=blue!25]{move this to later}.
-
-
-\noindent In this paper, we study localization of $\infty$-operads through the formalism of dendroidal sets. Our main result consists in extending Joyal's delocalization theorem to a delocalization theorem for every $\infty$-operad. This will allow us to give statements also for symmetric monoidal $\infty$-categories\todo[color=blue!25]{to add only if I expand on this}, and to deduce a 'locally constant' description for algebras over $\infty$-operads. Let us give a more precise overview of our main results in the next section.
+\medskip
 
 
 \subsection*{Main results}
-\noindent As already anticipated, the starting point for our operadic delocalization theorem is Joyal's delocalization theorem for $\infty$-categories, which we recall in the following
 
-\begin{theorem*}[{Joyal delocalization theorem}]
-	Let $X$ be a simplicial set, and consider its category of elements $\Delta/X$. The objects are strings of composable morphisms in $X$, i.e. a map $\alpha\colon \Delta^n \to X$. We denote such an object by $([n],\alpha)$ and represent it as $\alpha(0)\to \dots \to \alpha(n)$. There is a morphism from the nerve of this category back to $X$, $$ \cN(\Delta/X) \longrightarrow X \quad ([n],\alpha)\mapsto\alpha(n) \ ;$$ which sends a string to its last vertex.  This map is a weak categorical equivalence upon localizing $\cN(\Delta/X)$ at the preimage of the identities.  %The existence of such a functor is already proven in \cite[\S 1.6]{Wa:AKTSAGT}. The delocalization theorem states that this map is in fact a weak categorical equivalence upon localizing $\cN(\Delta/X)$ at the preimage of the identities.   this map is in fact a weak categorical equivalence upon localizing $\cN(\Delta/X)$ at the preimage of the identities. 
-\end{theorem*}
-
-\noindent For the operadic generalization, we pass to the category of \emph{dendroidal sets}, which we denote by $\dsets$. These are presheaves on a category $\omg$ whose objects are trees and with fully faithful inclusions $\Delta\subset\omg\subset\Op$.
-Canonically, one may form the dendroidal nerve functor $$\cN_d\colon \Op \to \dsets $$ from the category of discrete operads to dendroidal sets. There is a model structure on dendroidal sets where fibrant objects are \emph{quasioperads} (\cite{CM:DSMHO}), and it extends Joyal's model structure on simplicial sets for quasicategories.
+\noindent The category $\dsets$ of \emph{dendroidal sets} (the necessary preliminaries are in Chapter \ref{section1}) is that of presheaves on the \emph{dendroidal category} $\omg$ : its objects are trees, and maps can be defined via a fully faithful inclusion $\omg\subset\Op$. In particular, there is an inclusion $\Delta\subset \omg$ and a nerve functor $$\cN_d\colon \Op \to \dsets $$ for discrete operads.
 
 
-\noindent In this paper, we construct a natural transformation $(\omg/-)^\otimes\colon \dsets\to \Op$ fitting into the commutative diagram
+\noindent Given a dendroidal set $X$, we construct its \emph{operad of elements} $\omg/X^\otimes$ (Definition \ref{operadofdendrices}), fitting into a commutative diagram of functors
 \vspace{-0.2cm}
 \[\begin{tikzcd}
 	\dsets \arrow[r, "(\omg/-)^\otimes"]                   & \Op \arrow[r, "\cN_d"]                & \dsets                 \\
@@ -441,19 +468,20 @@ Canonically, one may form the dendroidal nerve functor $$\cN_d\colon \Op \to \ds
 \end{tikzcd}
 \]
 
-\noindent The operad $(\omg/X)^\otimes$ is defined in \Cref{operadofdendrices}. An object of $(\omg/X)^\otimes$ is given by $(T,\alpha)$, with $T$ a tree in $\omg$ and $\alpha\colon T \to X$ a map of dendroidal sets, that is, a labelling of $T$ by objects (the edges) and operations (the vertices) of $X$, together with all the higher coherences. A $k$-ary operation $((T_1,\alpha_1),\dots (T_n,\alpha_n) )\longrightarrow (S,\beta)$ is a map of dendroidal sets $T_1\sqcup\dots T_n \to S$ over $X$ satisfying certain \emph{wideness} and \emph{independency} conditions.
-
-\noindent The \emph{root} of $T$ is a canonical edge, and evaluating an object $(T,\alpha)$ at the root yields an assignemt $\mathsf{Ob}((\omg/X)^\otimes)\to X_0$. In some sense, $(\omg/X)^\otimes$ can be characterized as the maximal suboperad of the symmetric monoidal category $(\omg/X)^\sqcup$ for which the assignment $(\ast)$ extends to a functor of dendroidal set $$ \scriptr_X\colon \cN_d((\omg/X)^\otimes)\longrightarrow X$$ cocontinuously in $X$ as a natural transformation of functors. We call this map the \emph{root functor} (\Cref{rootfnc}). When $X$ is a simplicial set, the operad $(\omg/X)^\otimes$ is just the category of elements of $X$, and the root functor is the last vertex map $\cN(\Delta/X)\to X$. Our main result is the following. 
+\noindent An object $(T,\alpha)$ of $(\omg/X)^\otimes$ is given by a tree $T$ and $\alpha\colon T \to X$ a representable in $X$ ; it can be thought of as a scheme of composable multimorphisms in $X$ and higher coherences between them. Evaluating an object $(T,\alpha)$ at the root of $T$ yields an assignemt $$\mathsf{Ob}(\omg/X)^\otimes\to X_0 \ (\ast),$$ which we prove to extend to a natural transformation $$ \scriptr_X\colon \cN_d(\omg/X)^\otimes\longrightarrow X,$$ cocontinuously in $X$. We call this map the \emph{root functor} (\Cref{rootfnc}).
+In fact, $(\omg/X)^\otimes$ is the maximal suboperad spanned by the representables in the cocartesian operad $(\dsets_{/X})^\sqcup$ $(\omg/X)^\sqcup$ for which the assignment $(\ast)$ extends as just described.  Our main result is the following. 
 
 
 \begin{theorem*}[\ref{main}]\label{theorem:root}
-	Let $X$ be a normal\footnote{It means cofibrant in the operadic model structure. It corresponds to an operad being $\Sigma$-free.} dendroidal set, and let $\cR$ be the set of morphisms of $(\omg/X)^\otimes$ sent to identities by $\scriptr_X$. The root functor $\scriptr_X$ induces an operadic weak equivalence of dendroidal sets 
-	$$\overline{\scriptr_X}\colon \cN_d((\omg/X)^\otimes)[\cR^{-1}]\xlongrightarrow{\sim} X$$ between  the localization of $\cN_d((\omg/X)^\otimes)$ at $\cR$ and $X$.
+	If $X$ is normal\footnote{See Definition \ref{def:normal}.}, the root functor $\scriptr_X$ induces an operadic weak equivalence
+	$$\overline{\scriptr_X}\colon \cN_d(\omg/X)^\otimes[\cR^{-1}]\xlongrightarrow{\sim} X$$ where the morphisms in $\cR$ are the preimages of the identities.
+	
+	\noindent If $X$ is a simplicial set, one recovers Joyal's delocalization theorem, in the sense that ${(\omg/X)^\otimes\simeq \Delta/X}$ and ${\scriptr_X\simeq \ell_X.}$
 \end{theorem*}	
 
-\noindent Let us refer to the above as the \emph{(operadic) delocalization theorem}.
-
-\noindent When $X$ is a simplicial set, the root functor coincides with the last vertex functor and one recovers Joyal delocalization theorem for $\infty$-categories.
+\noindent The core of the proof of \Cref{main} lies in the construction of the operad of
+elements $(\Omega/X)^\otimes$; once this is in place, the strategy is inspired by the simplicial case
+\cite{Ste:CMSSL}, though the dendroidal setting requires several arguments to be carefully refined. Finally, it is natural to ask what happens when $X$ is a symmetric monoidal $\infty$-category, also in light of \cite{A:MRCMMIC} ; this is addressed in Remark~\ref{rmk:smcat}.
 
 %\begin{corollary*}[{Joyal, Stevenson}]
 %	
@@ -463,75 +491,77 @@ Canonically, one may form the dendroidal nerve functor $$\cN_d\colon \Op \to \ds
 %\end{corollary*}
 
 
+\noindent From the delocalization theorem we deduce that in the stable model structure on
+dendroidal sets \cite{BN:DSMCS}, any $\infty$-operad $X$ is weakly equivalent to
+the infinite loop space of $(\Omega/X)^\otimes$ (Corollary~\ref{westable}).
+%\footnote{The	stable model structure is a left Bousfield localization of the operadic one, Quillenequivalent to group-like $\mathbb{E}_\infty$-spaces \cite{BdBM:DSGSSBPQT}; under	$\dsets/\eta\simeq\ssets$ one recovers the Kan--Quillen model structure.}
+Specializing to $\infty$-categories recovers the well-known fact that every
+$\infty$-category has the weak homotopy type of a nerve, already used in \cite{Wa:AKTSAGT}.
 
- \noindent From the delocalization theorem we deduce that in the stable model structure on dendroidal sets (\cite{BN:DSMCS}), any $\infty$-operad $X$ is weakly equivalent to the infinite loop space of the discrete operad $(\omg/X)^\otimes$ (Corollary \ref{westable})\footnote{The stable model structure is a left Bousfield localization of the operadic model structure. It is Quillen equivalent to that of group-like $\mathbb{E}_\infty$-spaces ( \cite{BdBM:DSGSSBPQT}), or equivalently that of infinite loop spaces. Under the equivalence $\dsets/\eta\simeq \ssets$, one recovers Kan-Quillen model structure. }. When specialized to an $\infty$-category, it gives another proof of the well-known fact that every $\infty$- category has the weak homotopy type of the nerve of a category (used for instance in \cite{Wa:AKTSAGT}).
- 
 
-\noindent In the last \Cref{application}, we study how operadic localization interacts with the $\infty$-categories involved in the un/straightening equivalence: that of algebras over an $\infty$-operad and that of operadic left fibrations (\cite{He:AOIO}, \cite{BdBM:DSGSSBPQT}, \cite{R:MGCIC}, \cite{K:MEGCDSO}, \cite{P:SUEIO}). We use the formalism of dendroidal sets and the notion of dendroidal left fibrations, establishing Quillen equivalences of (semi)model categories. 
 
-\noindent More precisely, we consider a localization of dendroidal sets $X\to X[S^{-1}]$ and study the model category structure on $\dsets/X$ obtained as a left Bousfield localization of the covariant model structure (\Cref{construction}). Its fibrant objects are those dendroidal left fibrations $E\to X$ for which a morphism $f\colon x\to y$ in $S$ induces a weak homotopy equivalence of Kan complexes $f_!\colon E_x \to E_y$ between the fibres.  We denote it by $\cL_S\left(\dsets/X\right)$. The first result we prove is the following
+\noindent In the last \Cref{application}, we focus on operadic algebras and operadic left fibrations ; these two, organized in appropriate $\infty$-categories, are well known to be equivalent via the un/straightening equivalences (\cite{He:AOIO}, \cite{BdBM:DSGSSBPQT}, \cite{R:MGCIC}, \cite{K:MEGCDSO}, \cite{P:SUEIO}). More precisely, we consider a localization of dendroidal sets $X\to X[S^{-1}]$ and study the model category structure on $\dsets/X$ obtained as a left Bousfield localization of the covariant model structure (\Cref{construction}). Its fibrant objects are those dendroidal left fibrations $E\to X$ for which a morphism $f\colon x\to y$ in $S$ induces a weak homotopy equivalence of Kan complexes $f_!\colon E_x \to E_y$ between the fibres.  We denote it by $\cL_S\left(\dsets/X\right)$. The main result of Section \ref{application} is the following.
 
 
 \begin{proposition*}[{\ref{localg}}]
 	For every localization map of dendroidal sets $\lambda\colon X \to X[S^{-1}]$, the pullback along $\lambda$ induces a Quillen equivalence of model categories $$ \adjunction{\lambda_!}{\cL_S\left(\dsets/X\right)}{\dsets/X[S^{-1}]}{\lambda^*}.$$ 
 \end{proposition*}
 
+\noindent Specifying the result to the case of the nerve of the operad of elements allows to deduce local un/straightening equivalences (of semimodel categories), as we write in Corollary \ref{corofip}.
 
-\noindent By un/straightening, the following result follows.
 
 
-\begin{theorem*}[{\ref{corofip}}]
-		 Let $X$ be a normal dendroidal $\infty$-operad.  Let $\alg_{X}(\ssets)$ be the category of algebras over $X$ with the projective model structure. \footnote{The $\infty$-category of algebras over a dendroidal $\infty$-operad $X$ is modeled by the projective model structure on $\alg_{W_!(X)}(\ssets)$, where $W_!(X)$ is the simplicial operad given by the Boardman-Vogt resolution of $X$ (\cite{CM:DSSO}). } There is a zig-zag of Quillen equivalences of semi-model categories $$ \alg_{X}(\ssets)\xleftarrow{\sim}\bullet\xrightarrow{\sim} \cL_{\cR_X}\left(\alg_{(\omg/X)^\otimes}(\ssets)\right),$$ where on the right the Bousfield localization has as fibrant objects $\cR_X$-locally constant algebras. % between the projective model 
-\end{theorem*}
 
-\subsection*{Relation with other works}
 
-\noindent There is no canonical way to extend categorical results to operadic ones, and sometimes such extensions may not exist. The core of this result relies in the construction of the operad of elements $(\omg/X)^\otimes$. Once the construction is fixed, the formal steps of \Cref{main} follow Stevenson's approach in the proof of Joyal’s delocalization theorem \cite{Ste:CMSSL}. A new contracting homotopy for trees ($\mathfrak{l}_T$) must be built, and care is needed when extending simplicial arguments to dendroidal sets, e.g., assuming $X$ is normal.
 
-\noindent It is natural to ask what happens when $X$ is a symmetric monoidal $\infty$-category, also in light of \cite{A:MRCMMIC}. We address this in Remark \ref{rmk:smcat}.
-	
-\subsection*{Outline}\hfil
-\begin{enumerate}
-	\item In \Cref{section1} we recall the necessary preliminary notions and set up notation.
-	\item In \Cref{sectionOnloc}, we set up the theory of dendroidal localization. Our definition extends Lurie's simplicial localization for quasicategories in \cite{Lu:HA} to quasioperads.
-	\item \Cref{sec:rootfunctor} is the heart of the article: here we define the operad of elements (\Cref{operadofdendrices}), construct the root functor (\Cref{rootfnc}) and prove the delocalization theorem (\Cref{main}). 
-	\item  In \Cref{application}, we study interaction of dendroidal localization with operadic un/straightening equivalences, and then specify to the case of the operad of elements to deduce local un/straightening equivalences.
-\end{enumerate}
+
+%\subsection*{Outline}\hfil
+%\begin{enumerate}
+%	\item In \Cref{section1} we recall the necessary preliminary notions and set up notation.
+%	\item In \Cref{sectionOnloc}, we set up the theory of dendroidal localization. Our definition extends Lurie's simplicial localization for quasicategories in \cite{Lu:HA} to quasioperads.
+%	\item \Cref{sec:rootfunctor} is the heart of the article: here we define the operad of elements (\Cref{operadofdendrices}), construct the root functor (\Cref{rootfnc}) and prove the delocalization theorem (\Cref{main}). 
+%	\item  In \Cref{application}, we study interaction of dendroidal localization with operadic un/straightening equivalences, and then specify to the case of the operad of elements to deduce local un/straightening equivalences.
+%\end{enumerate}
 
 
 \addtocontents{toc}{\SkipTocEntry}
 
 
-\subsection*{Acknowledgements}I thank Gijs Heuts for suggesting this problem to me and for many valuable discussions. I am also grateful to Miguel Barata,Victor Carmona, Denis-Charles Cisinski and Ieke Moerdijk for several fruitful exchanges. I would like to thank my advisor, Eric Hoffbeck, for his constant support and interest in my projects, and for carefully reading my drafts.
+\subsection*{Acknowledgements}I thank Gijs Heuts for suggesting this problem and for many valuable discussions,
+and Miguel Barata, Victor Carmona, Denis-Charles Cisinski and Ieke Moerdijk for
+several fruitful exchanges. I am grateful to my PhD advisor Eric Hoffbeck for his
+constant support and for carefully reading my drafts. This project was realized
+during my PhD at Paris~13 and a visit to Utrecht, funded by the EOLE grant of
+the French-Dutch Network (RFN) and the Marie Skłodowska-Curie grant No~945332 (EU Horizon 2020).
+\section{Preliminaries}\label{section1}
 
-\noindent This project was realized during my PhD in Paris13 and a visiting in Utrecht. I hence thank the EOLE grant of French-Dutch Network (RFN) and the European Union’s Horizon 2020 research and innovation programme, which funded my PhD under the Marie Skłodowska-Curie grant agreement No 945332.
-
-\section{Dendroidal recollections}\label{section1}
-
-\noindent For this section, complete proofs and definitions can be found in \cite{HeMo:SDHT}.
+\noindent In this section, we recall the necessary preliminary notions and set up notation. Complete proofs and definitions can be found in \cite{HeMo:SDHT}.
 
 \subsection{Discrete operads}
 
-\noindent From now on, we will call \emph{operad} a discrete, strict operad $P$. We write $\Op$ for the category of operads and morphisms between them.
+\noindent From now on, we will call \emph{operad} a discrete, strict operad $P$. We write $\Op$ for the category of operads and morphisms between them. Observe that the set $\mathsf{Ob}(P)$ has the structure of a poset, where $c\leq d$ if and only if $P$ has an operation with target $d$ and set of inputs containing $c$. Observe that a morphism of operads $f\colon P \to Q$ induces a morphism of posets $f\colon \mathsf{Ob}(P)\to \mathsf{Ob}(Q)$.
 %\noindent  A discrete operad $P$, from now just an operad, has a set of objects (also called colors) $\mathsf{Ob}(P)$ and sets of operations $P(c_1,\dots,c_n;d)$ for any choice of objects $c_1,\dots,c_n,d$, together with partial composition laws $\{\circ_{c_i}\}$ 
 %\[ \circ_{c_i}\colon P(c_1,\dots,c_n;d)\times P(b_1,\dots,b_m;c_i) \longrightarrow P(c_1,\dots,c_{i-1},b_1,\dots,b_m, c_{i+1},\dots,c_n;d)\] and actions of the symmetric groups permuting variables. 
-A morphism of operads $f\colon P \to Q$ is the datum of a map of sets $ \mathsf{Ob}(P)\to \mathsf{Ob}(Q)$ together with maps ${P(c_1,\dots,c_n;d)\to Q(f(c_1),\dots,f(c_n);f(d))}$ for any choice of objects $c_1,\dots,c_n,d$, compatible with the operadic composition and the symmetric group action. 
-\begin{rmk}\label{rmk:pos}
-	The set $\mathsf{Ob}(P)$ has the structure of a poset, where $c\leq d$ if and only if $P$ has an operation with target $d$ and set of inputs containing $c$. Observe that a morphism of operads $f\colon P \to Q$ induces a morphism of posets $f\colon \mathsf{Ob}(P)\to \mathsf{Ob}(Q)$.
-\end{rmk}
+%A morphism of operads $f\colon P \to Q$ is the datum of a map of sets $ \mathsf{Ob}(P)\to \mathsf{Ob}(Q)$ together with maps ${P(c_1,\dots,c_n;d)\to Q(f(c_1),\dots,f(c_n);f(d))}$ for any choice of objects $c_1,\dots,c_n,d$, compatible with the operadic composition and the symmetric group action. 
 
-\noindent There is a fully faithful functor $j_!\colon \Cat \to \Op$, where $j_!$ acts by 'extension by zero', in the sense that
-\begin{equation}
-j_!C(c_1,\dots,c_n;d)= \begin{cases}\emptyset & \text{if $n\neq 1$} \\ C(c_1;d) & \text{if $n=1$.}
-\end{cases}
-\end{equation}
-\noindent Its right adjoint $j^*\colon \Op \to \Cat$ is called the \emph{underlying category} functor.
+\noindent There is a fully faithful functor $j_!\colon \Cat \to \Op$, where $j_!$ acts by extension by zero, i.e. n the sense that $j_!C(c_1,\dots,c_n;d)=\emptyset$ if $n\neq 1$. \noindent Its right adjoint $j^*\colon \Op \to \Cat$ is called the \emph{underlying category} functor.
+
+
+%\begin{equation}
+%j_!C(c_1,\dots,c_n;d)= \begin{cases}\emptyset & \text{if $n\neq 1$} \\ C(c_1;d) & \text{if $n=1$.}
+%\end{cases}
+%\end{equation}
 
 \begin{deff}
 	An operad $P$ is \emph{$\Sigma$-free} if, for any natural number $n$ and any choice of objects $c_1,\dots, c_n, c$, the symmetric group on $n$-elements $\Sigma_n$ acts freely on the set $	\underset{{\sigma \in \Sigma_n}}{\bigcup} P(c_{\sigma(1)},\dots,c_{\sigma(n)};c).$
 \end{deff}
 
-\noindent Given any (small) symmetric monoidal category $(\mathbb{V},\otimes)$, one may form the operad $\mathbb{V}^\otimes$, with objects the objects of $\mathbb{V}$ and operations $\mathbb{V}^\otimes(x_1,\dots,x_n;y)=\mathbb{V}(x_1\otimes\dots\otimes x_n; y)$, where composition is that of multivariable functions. A $P$-algebra in $\mathbb{V}$ is a morphism of operads $F\colon P\to \mathbb{V}^\otimes$. In this paper, we use $\mathbb{V}=\ssets$ and the subcategory $\mathbb{V}=\mathbf{Sets}$, symmetric monoidal with the cartesian product.
+\noindent Given a symmetric monoidal category $(\mathbb{V},\otimes)$, one forms the operad
+$\mathbb{V}^\otimes$ with operations $\mathbb{V}^\otimes(x_1,\dots,x_n;y)=
+\mathbb{V}(x_1\otimes\cdots\otimes x_n; y)$. A $P$-algebra in $\mathbb{V}$ is
+then a morphism of operads $P\to \mathbb{V}^\otimes$.
+
+
 % In other words, a collection $F=\{F_c\}_{c\in \mathsf{Ob}(P)}$ of objects of $\mathbb{V}$ and for any $p\in P(c_1,\dots,c_n;c)$ an action map $ p_\ast \colon  F_{c_1}\otimes \dots \otimes F_{c_n}\longrightarrow F_d$, equivariant with respect to the symmetric group, making the obvious operadic naturality diagrams commute. A morphism of $P$-algebras $\varphi\colon F \to G$ consists of morphisms $\varphi=\{\varphi_c \colon F_c \to G_c\}_{c\in \mathsf{Ob}(P)}$, again compatible with the operadic action in the obvious way. 
 
 \noindent Denote by $\alg_P(\mathbb{V})$ the category of $P$-algebras in $\mathbb{V}$ and morphisms between them. Observe that for a category $C$, we have a natural identification $\alg_{j_!C}(\mathbb{V})=\mathsf{Fun}(C,\mathbb{V})$.
@@ -600,13 +630,12 @@ j_!C(c_1,\dots,c_n;d)= \begin{cases}\emptyset & \text{if $n\neq 1$} \\ C(c_1;d) 
 \noindent There is a natural isomorphism $\Delta\simeq \omg/\eta$, which yields the isomorphism $\dsets/\eta\simeq \ssets$, under which the inclusion $i_!$ is the forgetful functor $\dsets/\eta\to \dsets$. More generally, for any simplicial set $M$, one has $\dsets/i_!M \simeq \ssets/M$.
 
 
- \subsubsection{Dendroidal notions}
+ \subsubsection{Dendroidal terminology}
  
  \noindent In a tree $T $ of $\omg$, every vertex has a single output edge and $n$ input edges for some $n\geq 0$ (the \emph{arity} of $v$). The root is the unique edge without an input vertex, and we denote it by $r_T$. The \emph{leaves} of $T$ are those edges which have no output vertex.
  A vertex is \emph{external} if its input edges are contained in the leaves of $T$ or if it is a \emph{stump}, that is, a vertex with no output edge. We denote by $C_n$ the the essentially unique tree with one vertex and $n$ leaves, and call it the \emph{$n$-corolla}. Let $\eta$ be the unique tree with no vertex.
-  Denote by $E(T)$ the set of edges of $T$.
-
-\noindent We rephrase the poset structure on $E(T)$ (see Remark \ref{rmk:pos}) as follows: for two edges $e,f$, one has ${e \leq f \text{ if and only if the (unique) path from $e$ to the root of $T$ contains $f$.}} $ In particular, the root $r_T$ is the unique maximal element, while the minimal elements are the leaves of $T$ and the input edges of stumps. %In particular, any map of trees $f\colon S\to T$ induces a map of posets $f\colon E(S)\to E(T)$ between the sets of edges of $S$ and $T$.
+ 
+  \noindent Denote by $E(T)$ the set of edges of $T$, the objects of the operad $\Omega(T)$. We rephrase the poset structure on $E(T)$ as follows: for two edges $e,f$, one has ${e \leq f \text{ if and only if the (unique) path from $e$ to the root of $T$ contains $f$.}} $ In particular, the root $r_T$ is the unique maximal element, while the minimal elements are the leaves of $T$ and the input edges of stumps. %In particular, any map of trees $f\colon S\to T$ induces a map of posets $f\colon E(S)\to E(T)$ between the sets of edges of $S$ and $T$.
 
 
 
@@ -706,7 +735,7 @@ Consider the operads
 \end{itemize}
 
 
-\begin{deff}
+\begin{deff}\label{def:normal}
 	A dendroidal set $X$ is a \emph{dendroidal $\infty$-operad} if it has the right lifting property against inner horn inclusions of trees.
 	
 	
@@ -808,7 +837,10 @@ Consider the operads
 \noindent Slicing over the point, that is under the equivalence $\ssets\simeq\dsets/\eta$, the operadic model structure yields the Joyal model structure, and the covariant model structure yields the homonimous one for left fibrations over a simplicial set.
 
 
-\noindent Coming back to the discussion after Example \ref{ex:bv}, let us observe that $\hom(-,-)$ homotopy-enriches $\dsets$ with the operadic model structure in simplicial sets with the Joyal model structure (\cite[Proposition 9.28]{HeMo:SDHT}). When localizing for the covariant model structure on $\dsets/X$, we find a simplicial enrichment with respect to the Kan-Quillen model structure (\cite[Proposition 9.66]{HeMo:SDHT}). In particular, $\hom(-,-)$, resp. $\hom_X(-,-)$, gives a model for the mapping spaces in the operadic, resp. covariant, model structure when computed on bifibrant objects.
+\noindent The functor $\hom(-,-)$ homotopy-enriches $\dsets$ over simplicial sets with the
+Joyal model structure \cite[Prop.~9.28]{HeMo:SDHT}, and $\hom_X(-,-)$ enriches
+$\dsets/X$ over the Kan--Quillen model structure \cite[Prop.~9.66]{HeMo:SDHT}.
+In particular, both give models for the respective mapping spaces when computed on bifibrant objects.
 %\noindent \textcolor{blue}{ Dendroidal\todo[color=blue!25]{can be shortened} sets with the tensor product are not a symmetric monoidal category, because the tensor product does not enjoy associative up to coherent isomorphism. In particular, the simplicial mapping objects $\hom(-,-)$ do not strictly 'enrich' $\dsets$ in $\ssets$. The content of \cite[Proposition 9.28]{HeMo:SDHT} is that, if it was not for this, one can say that the operadic model structure is enriched in the Joyal model structure via $\hom(-,-)$. \emph{I have the impression that one could say that the covariant model structure is instead 'enriched' in the Kan-Quillen model structure. Hint for this: $\hom_X(A,E)$ is a Kan complex when $A$ normal and $E\to X$ a dendroidal left fibration.}}
 
 \subsection{Last conventions}\label{subs:last}When in presence of the canonical fully faithful functors $i\colon \Delta\to \omg$,  $i_!\colon \ssets \to \dsets$, $\omg \to \Op \to \dsets$. In particular, given a tree $T$, we still write $T$ for the operad $\Omega(T)$ and for the dendroidal set $\Omega[T]$.  Observe that there are  isomorphisms of dendroidal sets $\eta\simeq \Delta^0$ and $C_1\simeq \Delta^1$, but that the analogy stops here, as for $n\neq 1$, there is not even a map $C_n\to \Delta^n$. We will freely use any of these functors explicitly whenever it is convenient or helps to emphasize a point.
@@ -959,50 +991,46 @@ Let $X$ be normal, $S\subseteq X_{C_1}$ a set of $1$-morphisms. Let $f,g\colon X
 \noindent The homotopy theory of algebras over a dendroidal $\infty$-operad $X$ is governed by the covariant model structure on the over-category $\dsets/X$, so it  is a natural question to investigate compatibility of the localization of dendroidal $\infty$-operads with the covariant model structure for dendroidal left fibrations. We study this in \Cref{section4} (\Cref{localg}).
 \section{The delocalization theorem}\label{sec:rootfunctor}
 
-\noindent We start \Cref{forest} by introducing the formalism of forests and wide independent maps between them. We define the operad of elements and the root functor of a dendroidal set in \Cref{thedef}, and prove the localization result, namely \Cref{main}, in \Cref{rootpresequiv}.
+We will now functorially associate to every dendroidal set $X$ a discrete operad $(\omg/X)^\otimes$. To mimic Joyal's theorem for simplicial sets, its objects should be the representable elements of the presheaf $X$, so we will call the operad $(\omg/X)^\otimes$ the \emph{operad of elements} of $X$. 
 
+%\textcolor{orange}{ with the requirement that, when $X$ is a simplicial set, $(\omg/X)^\otimes$ is a category and coincides with the category of elements of $X$. Also, the nerve of the constructed operad will need to map back to $X$. 
+%}{orange}
 
-\subsection{The category of forests}\label{forest}
-A \emph{forest} is a finite disjoint union of trees. We denote by $\Phi$ be the \emph{category of forests} obtained from $\omg$ by formally adjoining finite coproducts. By extending the inclusion $\omg\hookrightarrow \Op$ to forests under finite-coproduct, one has $\Omega\colon \Phi\hookrightarrow\Op$, where, given a forest $F=\bigsqcup_{i=1}^n T_i$, the operad $\Omega(F)$ is defined as $\Omega(F )\coloneqq \bigsqcup_{i=1}^n \Omega(T_i)$.  For any such $F$, every tree $T_i$ is called a \emph{constituent} of $F$, and $\omg$ embeds into $\Phi$ by seeing a tree to a forest with one constituent. Let $\phi$ be the subcategory of $\Phi$ whose objects are non-empty forests and where morphisms are the \emph{independent} maps of forests, where
+\subsection{The operad of elements and the root functor}\label{thedef} 
+
+\noindent For every dendroidal set $X$, disjoint union endows the overcategory $\dsets_{/X}$ with a symmetric monoidal structure, with associated operad $(\dsets_{/X})^\sqcup$. A first way to define the operad of elements of $X$ would be to do it as the full suboperad $(\omg/X)^\sqcup$ of $(\dsets_{/X})^\sqcup$ spanned by the representable objects. As we will explain in Remark \ref{rmk:nogood}, this operad can't work. What we do now is constructing what we will prove to be the \emph{maximal} wide suboperad of $(\omg/X)^\sqcup$ which works. To give its defininition (Definition \ref{operadofdendrices}), we need to introduce the following notions.
+
 
 \begin{deff}
- A morphism  of forests $f\colon F \longrightarrow G $ is called \emph{independent} if $F$ and $G$ are non-empty and, writing $F=\bigsqcup_{i=1}^n T_i$ and $G= \bigsqcup_{j=1}^m S_j$, $f$ is specified by a map of sets ${\alpha\colon \{1,\dots,n\}\to \{1,\dots,m\}}$ and morphisms of trees $f_i\colon T_i \to S_{\alpha(i)}$, for $i=1,\dots,n$, such that, whenever $i\neq i'$ and $\alpha(i)=\alpha(i')=j$, for all edges $e\in E(T_i)$, $e'\in E(T_{i'})$ the edges $f_i(e)$ and $f_{i'}(e')$ are incomparable in the poset $E(S_j)$. 
+	Given trees $T_i, S$, a morphism $f\colon \bigsqcup_{i=1}^n T_i \longrightarrow S $, $f=\bigsqcup f_i$, is called \emph{independent} if the edges $f(r{_{T_i}})$ and $f(r_{T_{i'}})$ are incomparable in the poset $E(S)$ whenever $i\neq i'$.
+	  
 \end{deff}
 
-\noindent By the independency condition, it suffices to check that the edges $f(r{_{T_i}})$ and $f(r_{T_{i'}})$ are independent. 
+\noindent Observe that this implies that for all edges $e\in E(T_i)$, $e'\in E(T_{i'})$, the edges $f_i(e)$ and $f_{i'}(e')$ are incomparable in $E(S)$. Also, the independency condition is trivially satisfied when $n=1$.
 
-\noindent The restriction of the disjoint union to $\phi$ endows it with a non-unital symmetric monoidal structure; we write $\oplus\coloneqq\bigsqcup_{|{\phi}}$ and call it direct sum. In the category $\phi$, every morphism can be written as a direct sum of maps whose target has only one constituent. Observe also that $\phi$ is no longer the coproduct in $\phi$, as a candidate for the codiagonal $F\oplus F\to F$ would not satisfy the independence property.
 
-\begin{rmk}The two categories of forests presented here are the ones appearing in various comparisons of the dendroidal and Lurie's model for $\infty$-operads: the category $\Phi$ is the one considered in \cite{HM:OELIODIO}, while the category $\phi$ is the one appearing in \cite{HHM:ELMDMIO}.
-\end{rmk}
-
-\subsection{Wide maps of forests} These were first introduced in \cite{HeMo:SDHT}.
-
-\begin{deff}
-A map of forests $f\colon F \to G$ is called \emph{wide} if, for any constituent tree $S$ of the forest $G$, any maximal monotonic path in the poset $E(S)$, that is from a minimal element to the root $r_S$, contains one element of the form $f(r_T)$ for some $T$ constituent tree of $F$.
+\begin{deff}[{\cite{HeMo:SDHT}}]
+	A $f\colon \bigsqcup_{i=1}^n T_i \longrightarrow S $ is called \emph{wide} if any maximal monotonic path in the poset $E(S)$, that is from a minimal element to the root $r_S$, contains one element of the form $f(r_{T_i})$ for some $i$.
 \end{deff} 
 
 \noindent Observe that if $f$ is also independent, if there exists such a constituent $T$, then it is unique.
 
-%In \Cref{dec} we have pointed out that any map of forests writes as the direct sum of maps of forests whose target is a tree, namely a forest with only one constituent.  In this 
-\noindent When the target of a map of forests has only one constituent, we can reformulate the wideness condition in the following useful way.
+\noindent For independent maps, we can reformulate the wideness condition in the following useful way.
 \begin{lemma}\label{wide}
-Let $T_1,\dots,T_n,S$ be trees and $f\colon T_1\oplus \dots \oplus T_n \to S$ a map of forests. If $f$ is independent, then $f$ is wide if and only if $S(f(r_{T_1}), \dots, f(r_{T_n}); r_S)\neq \emptyset$.
+Let $f\colon \bigsqcup_{i=1}^n T_i \longrightarrow S  $ be an independent map. Then $f$ is wide if and only if ${S(f(r_{T_1}), \dots, f(r_{T_n}); r_S)\neq \emptyset}$.
 \end{lemma}
 \begin{proof} It suffices to observe that, given edges $e_1,\dots,e_n$ of $S$, the only obstruction to the existence of a subtree with leaves $e_1,\dots,e_n$ and root $r_S$ is the existence of a maximal monotonic path $\mathfrak{p}=\{l<a_1<\dots<a_m<r_S\}$ in the poset of edges of $S$ such that $\{e_1,\dots,e_n\}\cap \mathfrak{p}=\emptyset$. 
 \end{proof}
 
-\noindent Every wide morphism is the direct sum of morphisms of the above type, and with \Cref{wide} it is immediate to see that wide maps are closed under composition.
-We introduce some classes of wide maps in the following
+\noindent Let us single out an important class of maps.
+\begin{deff}\label{dec2}
+A morphism of trees $f\colon T \to S$ is \emph{root preserving} if $f(r_T)=r_S$. 
+\end{deff}
 
-\begin{example}\label{dec2}\hfill
-\begin{enumerate}
-	\item All maps of linear trees $[n]\to [m]$ are wide and independent.
-	\item All maps of trees $T\to S$ are independent maps of forests.
-	\item A morphism of trees $f\colon T \to S$ is \emph{root preserving} if $f(r_T)=r_S$. Any root preserving map is wide, and the converse is true whenever the root vertex of $S$ is not unary. %\todo[color=orange!25]{Avant j'avais écrit "whenever $S$ does not have unary nor nullary vertices, mais ?}
+\noindent Any root preserving map is wide. The converse is true if the root vertex of $S$ is not unary or when $S$ does not have nullary vertices. In particular, observe that all maps of linear trees $[n]\to [m]$ are wide and independent. In fact, wide independent maps are generated, under composition and coproduct, by the root preserving morphisms and the forest root faces, which we introduce with the next
 
-	\item Given a forest $F$, one can construct the tree $\overline{F}$ as follows. Write $F=\oplus_{i=1}^n T_i$ and let $\overline{F}$ be the tree obtained as the grafting of the trees $(T_1,\dots,T_n)$ on the leaves $\{l_1,\dots,l_n\}$ of an $n$-corolla $C_n$, $$\overline{F}=C_n\circ (T_1,\dots,T_n) .$$ The \emph{forest root face} of $\overline{F}$ is the natural inclusion $$F=T_1\oplus \dots \oplus T_n \longrightarrow C_n\circ (T_1,\dots,T_n)= \overline{F}.$$ 
- 	
+\begin{example}	Grafting of unordered uples of trees defines a symmetric functor $$ (\omg^{\times n})_{\Sigma_n}\longrightarrow \omg \, \quad (T_1,\dots,T_n)\mapsto C_n\circ (T_1,\dots,T_n), $$ where $C_n\circ (T_1,\dots,T_n)$ is the tree obtained by grafting each $T_i$ on one leaf of the $n$-corolla $C_n$, $$\overline{F}=C_n\circ (T_1,\dots,T_n) .$$ The inclusions induce a map $$ T_1\sqcup\dots \sqcup T_n \longrightarrow C_n\circ (T_1,\dots,T_n),$$ which is both wide and independent. We refer to this map as a \emph{forest root face}\footnote{This terminology appears in \cite[\S 6.6]{HeMo:SDHT}}.
+	
 	\begin{center}
 		\begin{tikzcd}[sep=small]
 			&                                                                   &        &                             & {} \arrow[rd, no head] &                                                 & {}                                             &                    &    &                        &                                                                     &    & {}                                              &                                                                     & {}                    &                        \\
@@ -1020,105 +1048,75 @@ We introduce some classes of wide maps in the following
 	\end{center}
 	%\todo[inline, color=orange!25]{here picture}
 	%The natural inclusion $\iota_F\colon F \to \overline{F}$ is called the \emph{forest root face of $\overline{F}$}, and is a wide map of forests.
-	
-\end{enumerate}
 \end{example}
 
-%
-%\begin{prop} Wide maps are closed under composition.
-%\end{prop}
-%
-%\begin{proof}
-%	Let $f\colon F\to G$ and $g\colon G \to R$ be two wide map of forests. It is enough to suppose that $R$ is a tree and apply the criterion given by \Cref{wide}.
-%	Decompose $f$ as the direct sum $f=\oplus f^{(j)}$. Then each $f^{(j)}$ is wide, which means that $$ \Omega(Q_j)(f(r_{T_{i_j}}),\dots, f(r_{T_{n_j}}); r_{Q_j})\neq \emptyset\ \text{, where $f^{(j)}\colon  \overset{n_j}{\underset{i=i_j}{\oplus}}T_i \to Q_j$}, $$ and since $g$ is wide as well we have $$ \Omega(R)(g(r_{Q_1}),\dots, g(r_{Q_n}); r_R)\neq \emptyset. $$
-%	By operadic composition we conclude that there is a operation in $\Omega(R)(g(f(r_{T_1})),\dots, g(f(r_{T_n})), r_R)$, which shows that $g\circ f$ is wide, as wanted.
-%we have $\Omega(R)(g(r_{Q_1}),\dots, g(r_{Q_n}); r_R)\neq \emptyset$. Moreover, we can write $f=\oplus f^{(j)}$, with$f^{(j)}\colon F_j \coloneqq \overset{n_j}{\underset{i=i_j}{\oplus}}T_i \to Q_j$, with $F=\underset{j}{\oplus }F_j$, and each $f^{(j)}$ is wide, so $\Omega(Q_j)(f(r_{T_{i_j}}),\dots, f(r_{T_{n_j}}); r_{S_j})\neq \emptyset$. Since $g$ is a map of operads, one has that $\Omega(R)(g(f(r_{T_{i_j}})),\dots, g(f(r_{T_{n_j}})); g(r_{S_j}))\neq \emptyset$, and by operadic composition we obtain a operation in $\Omega(R)(g(f(r_{T_1})),\dots, g(f(r_{T_n})), r_R)$, as wanted.
-
-
-
-%Let $f\colon \overset{n}{\underset{i=1}{\oplus}} T_i \to \overset{m}{\underset{j=1}{\oplus}}S_j$ and $g\colon \overset{m}{\underset{j=1}{\oplus}} S_j \to \overset{q}{\underset{h=1}{\oplus}} R_h$ be wide maps of forests. Fix $h\in \{1,\dots,q\}$ and a maximal branch $\mathfrak{l}$ in $R_i$. Since $g$ is wide, there exists $j\in \{1,\dots,m\}$ such that $g(r_{S_j})\in \mathfrak{l}$, \emph{and since $g_j \colon S_j \to R_i$ is a morphism of trees, there exists a maximal branch $\overline{\mathfrak{l}}$ in $S_j$ such that $g(\overline{\mathfrak{l}})\subseteq \mathfrak{l}.$} By wideness of $f$ we find an index $t\in \{1,\dots,n\}$ such taht $f(r_{T_t})\in \overline{\mathfrak{l}}$. This proves that $g(f(r_{T_t}))\in \mathfrak{l}$, and since $h$ is arbitrary we conclude that $g\circ f$ is wide. 
-%\end{proof}
-
-\noindent In fact, it is easy to see that wide independent maps of forests are generated, under composition and direct sum, by forest root face inclusions and root preserving morphisms.
-%
-%\begin{proof}
-%It is enough to show that, given a map of forests $f\colon F \to S$, with $S$ a tree, $f$ factors as a forest root face inclusion followed by a root preserving morphism. Write $F=T_1\oplus\dots\oplus T_n$, with $T_i$ trees, and let $\iota_F\colon F \to \overline{F}$ be the forest root face associated to $F$. To extend $f$ to a map $\overline{f}\colon \overline{F}\to S$ such that $f=\overline{f}\circ\iota_{\overline{F}}$, we have to specify the image of the root vertex $v$ of $\overline{F}$. The unique possibility for $\overline{f}$ to be root preserving is sending $v$ to the subtree of $S$ with leaves $\{f(r_{T_1}),\dots,f(r_{T_n})\}$ and root $r_S$, which exists by \Cref{wide}. This concludes the proof. 
-%\end{proof}
-
-\subsection{The operad of elements and the root functor}\label{thedef} 
-We want to functorially associate to every dendroidal set $X$ a discrete operad $(\omg/X)^\otimes$, which we call the \emph{operad of elements} of $X$, with the requirement that, when $X$ is a simplicial set, $(\omg/X)^\otimes$ is a category and coincides with the category of elements of $X$. Also, the nerve of the constructed operad will need to map back to $X$. 
-
-\noindent Recall that, for every dendroidal set $X$, the overcategory $\dsets_{/X}$ is a symmetric monoidal category with the disjoint union $\sqcup$. Let $(\dsets_{/X})^\sqcup$ be the operad associated to it. A first, naive way would be to define the operad of elements of $X$ as the suboperad $(\omg/X)^\sqcup$ of $(\dsets_{/X})^\sqcup$ spanned by the representable objects. However, it turns out this is not the good definition (see later Remark \ref{rmk:nogood}), so we need to give a more elaborate one.
+\noindent We can now define the operad of elements.
 
 \begin{deff}\label{operadofdendrices}
-Let $X$ be a dendroidal set. Its \emph{operad of elements} $(\omg/X)^\otimes$ is the sub operad of $(\dsets_{/X})^\sqcup$ specified by the following data:
-\begin{itemize}
-	\item the set of objects of $(\omg/X)^\otimes$ is the set of elements of $X$ as a presheaf, that is, $$ \mathsf{Ob}((\omg/X)^\otimes)=\{ (T,\alpha) \ | \ T \in \omg \text{ and } \alpha\colon T \to X\};$$
-	\item for objects  $(S_1,\alpha_1),\dots,(S_n,\alpha_n)$, $(R,\beta)$, the set of operations $$(\omg/X)^\otimes((S_1,\alpha_1),\dots,(S_n,\alpha_n);(R,\beta))$$ is given by the wide and independent maps of forests $f\colon S_1\oplus \dots \oplus S_n \to R$ such that  $$\beta\circ f=(\alpha_1,\dots,\alpha_n)\colon S_1\bigsqcup \dots \bigsqcup S_n \to X$$ as maps of dendroidal sets.
+	Let $X$ be a dendroidal set. Its \emph{operad of elements} $(\omg/X)^\otimes$ is the sub operad of $(\dsets_{/X})^\sqcup$ specified by the following data:
+	\begin{itemize}
+		\item the set of objects of $(\omg/X)^\otimes$ is the set of elements of $X$ as a presheaf, that is, $$ \mathsf{Ob}(\omg/X)^\otimes=\{ (T,\alpha) \ | \ T \in \omg \text{ and } \alpha\colon T \to X\};$$
+		\item for objects  $(S_1,\alpha_1),\dots,(S_n,\alpha_n)$, $(R,\beta)$, the set of operations $$(\omg/X)^\otimes((S_1,\alpha_1),\dots,(S_n,\alpha_n);(R,\beta))$$ is given by the wide and independent maps $f=(f_i)_i\colon S_1\sqcup \dots \sqcup S_n \to R$ in $\dsets_{/X}$.
+		
+		%\begin{center}
+		
+		%\begin{tikzcd}
+		%\phi[S_1\oplus \dots \oplus S_n]\arrow[rd, "{(\alpha_1,\dots,\alpha_n)}"'] \arrow[rr, "f"] &      & \phi[R] \arrow[ld, "\beta"] \\
+		%                                                                                & u_*X &                      
+		%\end{tikzcd}
+		%\end{center}
+		%commutes in $\phi\sets,$  where the map $(\alpha_1,\dots,\alpha_n)$ is the transpose of the morphism of dendroidal sets $ \sqcup_{i=1}^n \Omega[S_i] \to X$ induced by the $\alpha_i$'s. Equivalently, the second condition can be expressed by saying that $\alpha_i= \beta\circ f_{|_{\phi[S_i]}}$ for any $i\in \{1,\dots,n\}$;
 	
-	%\begin{center}
-	
-	%\begin{tikzcd}
-	%\phi[S_1\oplus \dots \oplus S_n]\arrow[rd, "{(\alpha_1,\dots,\alpha_n)}"'] \arrow[rr, "f"] &      & \phi[R] \arrow[ld, "\beta"] \\
-	%                                                                                & u_*X &                      
-	%\end{tikzcd}
-	%\end{center}
-	%commutes in $\phi\sets,$  where the map $(\alpha_1,\dots,\alpha_n)$ is the transpose of the morphism of dendroidal sets $ \sqcup_{i=1}^n \Omega[S_i] \to X$ induced by the $\alpha_i$'s. Equivalently, the second condition can be expressed by saying that $\alpha_i= \beta\circ f_{|_{\phi[S_i]}}$ for any $i\in \{1,\dots,n\}$;
-	
-\end{itemize}
+	\end{itemize}
 \end{deff}
 
-\noindent To be explicit, the partial composition of $f$ as above with $g\in (\omg/X)^\otimes((Q_1,\beta_1),\dots,(Q_m,\beta_m); (S_i,\alpha_i))$ along $(S_i,\alpha_i)$ is given by the wide map of forests $$(S_1\oplus\dots\oplus S_{i-1}) \oplus (\oplus_{j=1}^m Q_j) \oplus S_{i+1}\dots \oplus S_n \xlongrightarrow{(\id^{\oplus i-1}, g, \id^{\oplus n-i})} \oplus_{h=1}^n S_h\xlongrightarrow{f} R. $$
+%\noindent To be explicit, the partial composition of $f$ as above with $g\in (\omg/X)^\otimes((Q_1,\beta_1),\dots,(Q_m,\beta_m); (S_i,\alpha_i))$ along $(S_i,\alpha_i)$ is given by the wide map of forests $$(S_1\oplus\dots\oplus S_{i-1}) \oplus (\oplus_{j=1}^m Q_j) \oplus S_{i+1}\dots \oplus S_n \xlongrightarrow{(\id^{\oplus i-1}, g, \id^{\oplus n-i})} \oplus_{h=1}^n S_h\xlongrightarrow{f} R. $$
 
 
 
-\begin{rmk}\label{rmk:sfree}By the independency condition on forest morphisms, the operad of elements $(\omg/X)^\otimes$ is $\Sigma$-free.
+\begin{rmk}\label{rmk:sfree}We list some properties of the operad of elements.
+	\begin{enumerate}
+		\item For a general $X$, the underlying category of $(\omg/X)^\otimes$ is a wide but not necessarily full subcategory of the category of elements of $X$, which is related to the presence of units (cfr the discussion after Definition \ref{dec2}).
+		\item In particular, if $X$ is a simplicial set than $(\omg/X)^\otimes $ \emph{is} the category of elements $\Delta/X$. Its objects are the pairs $([n],f)$, with $n\geq 0$ and $f\colon \Delta^n \to X$; a morphism $F\colon ([n],f)\to ([m],g)$ is just a map of representable simplicial sets $F\colon [n]\to [m]$ over $X$. The choice of embedding $\Delta\to \omg$ chosen in Section \ref{section1} identifies the root of a simplex $[n]$ with $n$ , hence root preserving morphisms of linear trees are just the $F\colon [n]\to[m]$ preserving the last vertex, that is$F(n)=m$.
+%		\item If $X\simeq \cN_d P$ for an operad $P$, an object of $\omg/X$ can be written as a pair $(T,\alpha)$, with $\alpha$ in $\Hom_{\Op}(T,P)$. Similarly, if $X\simeq W^*\mathbb{P}$, where $W^*$ is the homotopy coherent nerve of a simplicial operad $\mathbb{P}$, then for an object $(S,\beta)$ of $(\omg/X)^\otimes$ $\beta$ is an element in $ \Hom_{\mathsf{sOp}}(W(S),  \mathbb{P})$, where $W(S)$ is the simplicial operad given by the Boardman-Vogt resolution of $\Omega(S)$.
+	\item By the independency condition on operations, the operad $(\omg/X)^\otimes$ is $\Sigma$-free.
+	\end{enumerate}
 \end{rmk}
 
 
+\noindent The construction $X\mapsto (\omg/X^\otimes$ is functorial in $X$ via postcomposition, and we get an endofunctor \[\cN_d(\omg/-)^\otimes\colon \dsets \to \dsets.\] Let us postpone to later the proof of the next central
 
+\begin{lemma}\label{lke}The functor $\cN_d(\omg/-)^\otimes$ is cocontinuous. Moreover, it preserves normal monomorphisms of dendroidal sets.
+\end{lemma}
 
-\begin{example}\hfill
-\begin{itemize}
-	\item	For a simplicial set $M$, the operad of elements $(\omg/M)^\otimes$ coincides with the category of elements of $M$ $(\omg/M)^\otimes=\Delta/M$. Its objects are the pairs $([n],f)$, with $n\geq 0$ and $f\colon \Delta^n \to M$; a morphism $F\colon ([n],f)\to ([m],g)$ is just a map of representable simplicial sets $F\colon \Delta^n\to \Delta^m$ over $M$.
-	\item If $X\simeq \cN_d P$ for an operad $P$, an object of $\omg/X$ can be written as a pair $(T,\alpha)$, with $\alpha$ in $\Hom_{\Op}(T,P)$. Similarly, if $X\simeq W^*\mathbb{P}$, where $W^*$ is the homotopy coherent nerve of a simplicial operad $\mathbb{P}$, then for an object $(S,\beta)$ of $(\omg/X)^\otimes$ $\beta$ is an element in $ \Hom_{\mathsf{sOp}}(W(S),  \mathbb{P})$, where $W(S)$ is the simplicial operad given by the Boardman-Vogt resolution of $\Omega(S)$.
-\end{itemize}	
-\end{example}
-
-
-\noindent The construction $X\mapsto (\omg/X^\otimes$ is functorial in $X$ via postcomposition, and we get an endofunctor \[\cN_d((\omg/-)^\otimes)\colon \dsets \to \dsets.\] Let us postpone to later the proof of the next central
-
-\begin{prop}\label{lke}The functor $\cN_d((\omg/-)^\otimes)$ is cocontinuous. Moreover, it preserves normal monomorphisms of dendroidal sets.
-\end{prop}
-
-\noindent In other words, it means that $\cN_d((\omg/-)^\otimes)$ is equivalent to the left Kan extension of its restriction to representables, and moreover in an homotopy-coherent way
+\noindent In other words, it means that $\cN_d(\omg/-)^\otimes$ is equivalent to the left Kan extension of its restriction to representables, and moreover in an homotopy-coherent way
 
 
 \noindent Now, let $T$ be a tree and $(S,\alpha)$ an object of $(\omg/T)^\otimes$. Evaluation of $\alpha$ at the root of $S$ yields an assignment \begin{equation}\label{evaluation}
-	\mathsf{Ob}((\omg/T)^\otimes)\ni (S,\alpha)\mapsto \alpha(r_S) \in \mathsf{Ob}(T)=E(T).
+	\mathsf{Ob}(\omg/T)^\otimes\ni (S,\alpha)\mapsto \alpha(r_S) \in \mathsf{Ob}(T)=E(T).
 \end{equation}
 
 \begin{prop}\label{prop:extension}
 	The assignment in \Cref{evaluation} extends to a map of operads $$ \scriptr_T\colon (\omg/T)^\otimes \longrightarrow T$$ that we call the \emph{root functor} for $T$.
 \end{prop}
 \begin{proof}
-	As the set of operations of $T$ is either empty or a singleton, we just need to check that, if there exists a wide independent map of forests $f\colon (S_1,\alpha_1), \dots, (S_n,\alpha_n)\to (R,\beta)$, then $T(\alpha_1(r_{S_1}),\dots, \alpha_n(r_{S_n}); \beta(r_R))\neq \emptyset$. By Lemma \ref{wide}, $R(f(r_{S_1}),\dots,f(r_{S_n}); r_R)\neq \emptyset$, and since $\beta$ is a map of operads  and $\beta \circ f =(\alpha_1,\dots,\alpha_n)$ we have the thesis, as wanted.
+The set of operations of a tree $T$ is either empty or a singleton. It follows that to prove the statement we just need to check that, if there exists a wide independent map $f\colon (S_1,\alpha_1), \dots, (S_n,\alpha_n)\to (R,\beta)$, then ${T(\alpha_1(r_{S_1}),\dots, \alpha_n(r_{S_n}); \beta(r_R))\neq \emptyset}$. By Lemma \ref{wide}, $R(f(r_{S_1}),\dots,f(r_{S_n}); r_R)\neq \emptyset$, and since $\beta$ is a map of operads  and $\beta \circ f =(\alpha_1,\dots,\alpha_n)$ we have the thesis, as wanted.
 \end{proof}
 
 \begin{rmk}\label{rmk:nogood}
-	The assignment in \Cref{evaluation} makes sense even for the \emph{full} suboperad $(\omg/X)^\sqcup\subseteq (\dsets/X)^\sqcup$, where one considers all maps of forests $T_1\oplus\dots\oplus T_n \to S$. However, Proposition \ref{prop:extension} does \emph{not} hold for $(\omg/X)^\sqcup$. An easy way to see this is taking $X=C_n$ any $n$-corolla, and the binary operation $(\id,\id)\colon (C_n,\id), (C_n,\id) \to (C_n,\id)$. A candidate image for this latter has to be a subtree of $C_n$ with leaves $(r_{C_n},r_{C_n})$ and root $r_{C_n}$, but such subtree does not exist. In this sense, Proposition \ref{prop:extension} characterizes $\omg/X$ as the maximal sub operad of $(\omg/X)^\sqcup$ such that Proposition \ref{prop:extension} holds.
+	The assignment in \Cref{evaluation} makes sense even for the \emph{full} suboperad $(\omg/X)^\sqcup\subseteq (\dsets/X)^\sqcup$. However, Proposition \ref{prop:extension} does \emph{not} hold for $(\omg/X)^\sqcup$. An easy way to see this is taking $X=C_n$ any $n$-corolla, and the binary operation $(\id,\id)\colon (C_n,\id), (C_n,\id) \to (C_n,\id)$. A candidate image for this latter has to be a subtree of $C_n$ with leaves $(r_{C_n},r_{C_n})$ and root $r_{C_n}$, but such subtree does not exist. Proposition \ref{prop:extension} characterizes $(\omg/X)^\otimes$ as the maximal sub operad of $(\omg/X)^\sqcup$ such that the statement holds: maximality consists in observing that the condition shown in the proof is an if and only if.
 \end{rmk}
 
-\noindent Because of cocontinuity of $\cN_d((\omg/-)^\otimes)$ (\Cref{lke}), we can extend the root functor to every dendroidal set.
+\noindent Because of cocontinuity of $\cN_d(\omg/-)^\otimes$, we can extend the root functor to every dendroidal set.
 
 
 \begin{deff}\label{rootfnc}
-Let $X$ be a dendroidal set. The \emph{root functor} of $X$ is the morphism of dendroidal sets $$\scriptr_X \colon \cN_d((\omg/X)^\otimes)\longrightarrow X$$ defined as the colimit $$\scriptr_X \coloneqq \underset{T\to X}{\colim} \scriptr_T\colon \cN_d((\omg/T)^\otimes)\longrightarrow T.$$
+Let $X$ be a dendroidal set. The \emph{root functor} of $X$ is the morphism of dendroidal sets $$\scriptr_X \colon \cN_d(\omg/X)^\otimes\longrightarrow X$$ defined as the colimit $$\scriptr_X \coloneqq \underset{T\to X}{\colim} \scriptr_T\colon \cN_d(\omg/T)^\otimes\longrightarrow T.$$
 
 \end{deff}
 
 
-\noindent We can interpret an object $(S,\alpha)$ in $\cN_d((\omg/X)^\otimes)$ as a decoration of the tree $S$ with objects and operations in $X$, together with all higher coherences governing operadic composition (which are not visible in the picture). In particular, by contracting all inner edges of $S$ one obtains an operation of $X$. The root functor then sends $(S,\alpha)$ to the target of this operation.  Visually
+\noindent We can interpret an object $(S,\alpha)$ in $\cN_d(\omg/X)^\otimes$ as a decoration of the tree $S$ with objects and operations in $X$, together with all higher coherences governing operadic composition (which are not visible in the picture). In particular, by contracting all inner edges of $S$ one obtains an operation of $X$. The root functor then sends $(S,\alpha)$ to the target of this operation.  Visually
 
 \vspace{-0.4cm}
 \begin{figure}[h]
@@ -1145,53 +1143,54 @@ Let $X$ be a dendroidal set. The \emph{root functor} of $X$ is the morphism of d
 \end{center}
 
 \begin{rmk}
-	If $M$ is a simplicial set, the root functor coincides with the \emph{last vertex functor} $$\scriptr_M\colon \Delta/M \to M, \quad \scriptr_M([n],f)= f(n).$$
+	If $X$ is a simplicial set, the root functor coincides with the \emph{last vertex functor} $$\scriptr_X\colon \Delta/X \to X, \quad \scriptr_X([n],f)= f(n).$$
 \end{rmk}
 
 \noindent We conclude this section with the promised proof of cocontinuity of the nerve operad of elements construction. 
 
 
-\begin{proof}[{Proof (of Proposition \ref{lke})}]
-	We denote by $\theta$ the restriction of $\cN_d((\omg/-)^\otimes)$ to the representables, that is $\theta=\cN_d((\omg/-)^\otimes)_{|_\omg}$, and we write $\widehat{\theta}$ for its left Kan extension along the Yoneda embedding. 
+\begin{proof}[{Proof (of Lemma \ref{lke})}]
+	We denote by $\theta$ the restriction of $\cN_d(\omg/-)^\otimes$ to the representables, that is $\theta=\cN_d(\omg/-)^\otimes_{|_\omg}$, and we write $\widehat{\theta}$ for its left Kan extension along the Yoneda embedding. 
 	
-	\noindent Given a dendroidal set $X$ and a tree $T$, the set $\widehat{\theta}(X)_T$ may be described as $$ \widehat{\theta}(X)_T= \{ ((Q,x), (T,u)) \ | \ Q\in \omg, x\colon Q \to X, u\colon T \to \theta(Q)\}/\sim,$$ where, for any $\alpha\colon S \to Q$, one identifies $$ ((Q,x), (R,\alpha_* u))\sim ((S, x\alpha), (R,u)),$$ where $\alpha_*=\cN_d((\omg/\alpha)^\otimes)$.
+	\noindent Given a dendroidal set $X$ and a tree $T$, the set $\widehat{\theta}(X)_T$ may be described as $$ \widehat{\theta}(X)_T= \{ ((Q,x), (T,u)) \ | \ Q\in \omg, x\colon Q \to X, u\colon T \to \theta(Q)\}/\sim,$$ where, for any $\alpha\colon S \to Q$, one identifies $$ ((Q,x), (R,\alpha_* u))\sim ((S, x\alpha), (R,u)),$$ where $\alpha_*=\cN_d(\omg/\alpha)^\otimes$.
 	Functoriality in $T$ is given by letting faces and degeneracies act on the second component, while functoriality in $X$ is obtained via the first component. 
 	
 	\noindent We construct a natural equivalence
-	$$\psi_X\colon \widehat{\theta}(X)\to \cN_d((\omg/X)^\otimes)$$ by defining its components $(\psi_X)_T$ by induction on the number of vertices of the tree $T$. 
-	When $T\simeq \eta$, we set $$ \psi_X((Q,x), (\eta, u))\coloneqq x_*\circ u \colon \eta \to \cN_d((\omg/X)^\otimes).$$ The assignment respects the equivalence relation, as (with the same notations as above) one has $$ \psi_X((Q,x),(\eta,\alpha_* u))= x_*(\alpha_* u)= (x\alpha)_* u = \psi_X((S, x\alpha), (\eta,u)),$$ and it is straightforward to see that it induces a bijection. 
+	$$\psi_X\colon \widehat{\theta}(X)\to \cN_d(\omg/X)^\otimes$$ by defining its components $(\psi_X)_T$ by induction on the number of vertices of the tree $T$. 
+	When $T\simeq \eta$, we set $$ \psi_X((Q,x), (\eta, u))\coloneqq x_*\circ u \colon \eta \to \cN_d(\omg/X)^\otimes.$$ The assignment respects the equivalence relation, as (with the same notations as above) one has $$ \psi_X((Q,x),(\eta,\alpha_* u))= x_*(\alpha_* u)= (x\alpha)_* u = \psi_X((S, x\alpha), (\eta,u)),$$ and it is straightforward to see that it induces a bijection. 
 	
-	\noindent Similarly, given a $n$-corolla $C_n$, $n\geq 0$, and an element $((S, x), (C_n,u)),$ we set $$ \psi_X((S, x), (C_n,u))\coloneqq x_*u \colon C_n \to \cN_d((\omg/X)^\otimes),$$ and it is the same calculation which shows that it descends to the quotient and is a bijection. 
+	\noindent Similarly, given a $n$-corolla $C_n$, $n\geq 0$, and an element $((S, x), (C_n,u)),$ we set $$ \psi_X((S, x), (C_n,u))\coloneqq x_*u \colon C_n \to \cN_d(\omg/X)^\otimes,$$ and it is the same calculation which shows that it descends to the quotient and is a bijection. 
 	
-	\noindent For the inductive step, let us consider a tree $T$ with at least two vertices and decompose it as the grafting $T=R\cup_a S$, with $R,S\neq \eta$. For any dendroidal set $Y$, there is a natural isomorphism $$ \cN_d((\omg/Y)^\otimes)_{T}\simeq \cN_d((\omg/Y)^\otimes)_R\underset{\cN_d((\omg/Y)^\otimes)_\eta}{\times} \cN_d((\omg/Y)^\otimes)_S.$$ The isomorphism is compatible with the equivalence relation defining $\widehat{\theta}(X)$, which means that $\widehat{\theta}(X)$ satisfies the same strict Segal condition, that is, there is a natural isomorphism $$ \widehat{\theta}(X)_T \simeq \widehat{\theta}(X)_R \underset{\widehat{\theta}(X)_\eta}{\times}\widehat{\theta}(X)_S.$$ One defines the map $(\psi_X)_T$ as $$(\psi_X)_T \coloneqq (\psi_X)_R\underset{(\psi_X)_\eta}{\times} (\psi_X)_S.$$It respects the equivalence relation and is a bijection, so we only need to check that $\psi_X$ is well defined. This follows from the fact that any tree $T$ decomposes as the grafting of corollas, and the decomposition is unique up to isomorphism and operadic associativity relations, and the Segal isomorphism is compatible with these latter, which shows that the definition of $(\psi_X)_T$ does not depend on the decomposition of $T$, as wanted.
+	\noindent For the inductive step, let us consider a tree $T$ with at least two vertices and decompose it as the grafting $T=R\cup_a S$, with $R,S\neq \eta$. For any dendroidal set $Y$, there is a natural isomorphism $$ \cN_d(\omg/Y)^\otimes_{T}\simeq \cN_d(\omg/Y)^\otimes_R\underset{\cN_d(\omg/Y)^\otimes_\eta}{\times} \cN_d(\omg/Y)^\otimes_S.$$ The isomorphism is compatible with the equivalence relation defining $\widehat{\theta}(X)$, which means that $\widehat{\theta}(X)$ satisfies the same strict Segal condition, that is, there is a natural isomorphism $$ \widehat{\theta}(X)_T \simeq \widehat{\theta}(X)_R \underset{\widehat{\theta}(X)_\eta}{\times}\widehat{\theta}(X)_S.$$ One defines the map $(\psi_X)_T$ as $$(\psi_X)_T \coloneqq (\psi_X)_R\underset{(\psi_X)_\eta}{\times} (\psi_X)_S.$$It respects the equivalence relation and is a bijection, so we only need to check that $\psi_X$ is well defined. This follows from the fact that any tree $T$ decomposes as the grafting of corollas, and the decomposition is unique up to isomorphism and operadic associativity relations, and the Segal isomorphism is compatible with these latter, which shows that the definition of $(\psi_X)_T$ does not depend on the decomposition of $T$, as wanted.
 \end{proof}
 
 \subsection{The delocalization result}\label{section3}\label{rootpresequiv}
-In \Cref{dec2} we introduced root preserving morphisms of trees, which are in particular wide independent maps of forests. Given a dendroidal set $X$, we say that a morphism $f\colon (S,\alpha)\to (R,\beta)$ is \emph{root preserving} if $f\colon S \to R$ is a root preserving map of trees. Denote by $\cR_X$ the set of root preserving morphisms of $(\omg/X)^\otimes$.
+In Definition \ref{dec2} we introduced root preserving morphisms of trees, which are in particular wide and independent maps, hence morphisms in the underlying category of $(\omg/X)^\otimes$. Denote by $\cR_X$ the set of root preserving morphisms of $(\omg/X)^\otimes$.
 
-\noindent If $f\colon (S,\alpha)\to (R,\beta)$ is root preserving, then $\scriptr(f)= \id_{f(r_S)}$, so the root functor factors via the localization of $\cN_d((\omg/X)^\otimes)$ at $\cR_X$, as 
+\noindent If $f\colon (S,\alpha)\to (R,\beta)$ is root preserving, then $\scriptr(f)= \id_{f(r_S)}$, so the root functor factors via the localization of $\cN_d(\omg/X)^\otimes$ at $\cR_X$, as 
 
 \[
 \begin{tikzcd}
-	\cN_d((\omg/X)^\otimes) \arrow[rr, "\scriptr_X"] \arrow[rd, "\lambda"']& & X \\
-	& \cN_d((\omg/X)^\otimes)[\cR_{X}^{-1}] \arrow[ru, "\overline{\scriptr_X}"'] \ .& 
+	\cN_d(\omg/X)^\otimes \arrow[rr, "\scriptr_X"] \arrow[rd, "\lambda"']& & X \\
+	& \cN_d(\omg/X)^\otimes[\cR_{X}^{-1}] \arrow[ru, "\overline{\scriptr_X}"'] \ .& 
 \end{tikzcd}
 \]
 
 \begin{theorem}\label{main}
- For any normal dendroidal set $X$, the root functor induces an operadic weak equivalence of dendroidal sets $$\overline{\scriptr_X} \colon \cN_d((\omg/X)^\otimes)[\cR^{-1}_X]\xrightarrow{\sim} X.$$
+ For any normal dendroidal set $X$, the root functor induces an operadic weak equivalence of dendroidal sets $$\overline{\scriptr_X} \colon \cN_d(\omg/X)^\otimes[\cR^{-1}_X]\xrightarrow{\sim} X.$$
+ 
+ \noindent Moreover, if $X$ is a simplicial set, the root functor coincides with the last vertex functor  and yields a weak categorical equivalence $\cN(\Delta/X)[\cR_X^{-1}]\xlongrightarrow{\sim} X$
  \end{theorem} 
  
 
 
-\begin{proof} Let us use  \Cref{modeloc} and choose $\cL(\cN_d((\omg/X)^\otimes), \cR_X)$ for the model of the localization of $\cN_d((\omg/X)^\otimes)$ at $\cR_X$. By \Cref{lke}, the functor  $\cL(-,\cR_{-})\colon \dsets \to \dsets$ is cocontinuous and preserves normal monomorphisms, so we proceed by skeletal filtration, reducing the proof to the case of $X\simeq T$ a tree, that is a representable dendroidal set. The root functor is the nerve of the map of operads $\scriptr\colon (\omg/T)^\otimes\to T$, and we construct a section  $\mathfrak{l}_T$ of $\scriptr_T$, $$\mathfrak{l}_T\colon T \to (\omg/T)^\otimes$$ and a homotopy $$h\colon  \cN_d((\omg/T)^\otimes)\otimes C_1\to \cN_d((\omg/T)^\otimes)$$ between $ \mathfrak{l}_T\circ \scriptr_T$ and $\id_{(\omg/T)^\otimes}$, such that its components are root preserving morphisms. After \Cref{lemmaequiv}, this implies that $h$ becomes an equivalence between $ \mathfrak{l}_T\circ \scriptr_T $ and $\id_T$ after localizing at $\cR_T$, which means that $\mathfrak{l}_T$ and $\scriptr_T$ are homotopy inverses of the other once localized.
+\begin{proof} We model localization of dendroidal sets via the pushout, as illustrated in Proposition \ref{modeloc}. By Lemma \ref{lke}, localizing the nerve of $(\omg/X)^\otimes$ at $\cR_X$ is a cocontinuous endofunctor of dendroidal sets and preserves normal monomorphisms. We may therefore proceed by skeletal filtration, reducing the proof to the case of $X\simeq T$ a tree, that is a representable dendroidal set. The root functor is the nerve of the map of operads $\scriptr\colon (\omg/T)^\otimes\to T$, and we construct a section  $\mathfrak{l}_T$ of $\scriptr_T$, $$\mathfrak{l}_T\colon T \to (\omg/T)^\otimes$$ and a homotopy $$h\colon  \cN_d(\omg/T)^\otimes\otimes C_1\to \cN_d(\omg/T)^\otimes$$ between $ \mathfrak{l}_T\circ \scriptr_T$ and $\id_{(\omg/T)^\otimes}$, such that its components are root preserving morphisms. After Lemma \ref{lemmaequiv}, this implies that $h$ becomes an equivalence between $ \mathfrak{l}_T\circ \scriptr_T $ and $\id_T$ after localizing at $\cR_T$, which means that $\mathfrak{l}_T$ and $\scriptr_T$ are homotopy inverses of the other once localized.
 
 \noindent To construct $h$, consider an edge $e$ of $T$, and let $T_e^{\uparrow}$ be the biggest subtree of $T$ having $e$ as root. We denote by $\iota_e\colon T^\uparrow_{e}\hookrightarrow T$ the associated subtree inclusion. Observe that, if $e\leq f$, then $T_e$ is a subtree of $T_f$. 
 
-\noindent We define the morphism $\mathfrak{l}_T$ on an edge $e$ of $T$ as $$\mathfrak{l}_T(e)\coloneqq  (T^\uparrow_{e},\iota_e)\in \mathsf{Ob}((\omg/T)^\otimes).$$ 
-Given edges $e_1,\dots,e_n,e$ such that $T(e_1,\dots,e_n;e)=\{*\}$, the map $$\mathfrak{l}_T \colon \{*\} \xlongrightarrow{} (\omg/T)^\otimes((T^\uparrow_{e_1},\iota_{e_1}),\dots,(T^\uparrow_{e_n},\iota_{e_n});(T^\uparrow_{e}, \iota_{e}))$$ selects the operation of $(\omg/T)^\otimes$ given by the forest inclusion $$\oplus_{i=1}^nT_{e_i}^{\uparrow} \xhookrightarrow{}  T_e^{\uparrow},$$ defined by the composition of the forest root face $\oplus_{i=1}^nT_{e_i}^{\uparrow}\xrightarrow{} \overline{\oplus_{i=1}^nT_{e_i}^{\uparrow}}$ and the inner face $\partial\colon \overline{\oplus_{i=1}^nT_{e_i}^{\uparrow}}\to T^\uparrow_e$ sending each $T_{e_i}^{\uparrow}$ to itself and the new root vertex to the subtree $T_e^{\underline{e}}$.
-
-\noindent As the operadic composition for $T$ is the grafting of subtrees, we can check that it is a well defined map of operads $\mathfrak{l}_T\colon T\to (\omg/T)^\otimes$. %(and we notice that, contrarily to the root functor, it is not natural in $T$). However, the tree $T$ being fixed, 
+\noindent We define the morphism $\mathfrak{l}_T$ on an edge $e$ of $T$ as $$\mathfrak{l}_T(e)\coloneqq  (T^\uparrow_{e},\iota_e)\in \mathsf{Ob}(\omg/T)^\otimes.$$ 
+Given edges $e_1,\dots,e_n,e$ such that $T(e_1,\dots,e_n;e)=\{*\}$, the map $$\mathfrak{l}_T \colon \{*\} \xlongrightarrow{} (\omg/T)^\otimes((T^\uparrow_{e_1},\iota_{e_1}),\dots,(T^\uparrow_{e_n},\iota_{e_n});(T^\uparrow_{e}, \iota_{e}))$$ selects the operation 
+defined as the composition $$\bigsqcup_{i=1}^n{T_{e_i}}^{\uparrow}\xrightarrow{} C_n\circ (T_{e_1}^{\uparrow},\dots, T_{e_n}^{\uparrow}) \xrightarrow{\partial} T^\uparrow_e$$ of a forest root face and inner face $\partial$ sending each $T_{e_i}^{\uparrow}$ to itself and the new root vertex to the subtree $T_e^{\underline{e}}$. As the operadic composition for $T$ is the grafting of subtrees, we can check that it is a well defined map of operads $\mathfrak{l}_T\colon T\to (\omg/T)^\otimes$. %(and we notice that, contrarily to the root functor, it is not natural in $T$). However, the tree $T$ being fixed, 
 One checks that  $\scriptr_T\circ \mathfrak{l}_T = \id_T$; for the other composition $\mathfrak{l}_T\circ \scriptr_T$, consider an object $(S,\alpha)$ in $(\omg/T)^\otimes$. We have that
   
   $$ \mathfrak{l}_T\circ \scriptr_T(S,\alpha)= \mathfrak{l}_T(\alpha(r_S)))=(T_{\alpha(r_S)}^\uparrow,\iota_{\alpha(r_S)})\ .$$
@@ -1206,28 +1205,25 @@ S \arrow[rr, "\alpha"] \arrow[rd, "h_{(S,\alpha)}"'] &                          
 
 \noindent for an unique root preserving morphism $h_{(S,\alpha)}$. In particular, $h_{(S,\alpha)}$ is a morphism in $(\omg/T)^\otimes$ and we obtain  the collection of morphisms $$h\coloneqq \{h_{(S,\alpha)} \colon (S,\alpha)\to (T_{\alpha(r_S)},\iota_{\alpha(r_S)})\}_{(S,\alpha) \in \mathsf{Ob}(\omg/T)}.$$
 Let us show that $h$ defines an homotopy between $\id_{(\omg/T)^\otimes}$ and $\mathfrak{l}_T \circ \scriptr_T$. For this purpose, we need to check the Boardman-Vogt interchange relation, so consider objects  $(S_1,\beta_1),\dots,(S_n,\beta_n),(R,\gamma)$ and an operation $f \in (\omg/T)^\otimes((S_1,\beta_1),\dots,(S_n,\beta_n);(R,\gamma))$. Since $\gamma\circ f=(\beta_1,\dots,\beta_n)$, we have that 
-\[ \gamma\circ f = (\iota_{\scriptr_T(\beta_1)}, \dots, \iota_{\scriptr_T(\beta_n)})\circ (h_{(S_1,\beta_1)}, \dots, h_{(S_n,\beta_n)}),\] which is precisely the wanted relation. Consider the functor of dendroidal set given by the dendroidal nerve of $h$; precomposing $\cN_d(h)$ with the natural map $\cN_d((\omg/T)^\otimes)\otimes C_1\to \cN_d((\omg/T )^\otimes\otimes C_1)$, we obtain an homotopy between between the identity of $(\omg/T)^\otimes$ and the composition $\mathfrak{l}_T\circ \scriptr_T$. As the components of this homotopy are root preserving morphisms, it becomes an equivalence after localizing at $\cR_T$, and this concludes the argument.
+\[ \gamma\circ f = (\iota_{\scriptr_T(\beta_1)}, \dots, \iota_{\scriptr_T(\beta_n)})\circ (h_{(S_1,\beta_1)}, \dots, h_{(S_n,\beta_n)}),\] which is precisely the wanted relation. Consider the functor of dendroidal set given by the dendroidal nerve of $h$; precomposing $\cN_d(h)$ with the natural map $\cN_d(\omg/T)^\otimes\otimes C_1\to \cN_d((\omg/T )^\otimes\otimes C_1)$, we obtain an homotopy between between the identity of $(\omg/T)^\otimes$ and the composition $\mathfrak{l}_T\circ \scriptr_T$. As the components of this homotopy are root preserving morphisms, it becomes an equivalence after localizing at $\cR_T$, and this concludes the argument for a general dendroidal set $X$.
+
+\noindent The specialization to the case of $X$ simplicial sets, that is Joyal's delocalization theorem, follows from Remark \ref[(2)]{rmk:sfree} and the fact that the operadic model structure reduces to Joyal model structure on simplicial sets.
 \end{proof}
 
 \noindent The operadic model structure on $\dsets$ admits a left Bousfield localization whose homotopy category is equivalent to that of group-like $\mathbb{E}_\infty$-algebras, in turn equivalent to infinite loop spaces. It is called the \emph{stable model structure}, and was first introduced by Bašić-Nikolaus in \cite{BN:DSMCS}. It has the property that the induced model structure on the overcategory $\ssets\simeq \dsets/\eta$ coincides with the Kan-Quillen model structure. In particular, one localizes also by the arrow $C_1\to J$, which becomes an equivalence, so from \Cref{main} we deduce the following
 \begin{coro}\label{westable}
-For any normal dendroidal set $X$, the root functor $\scriptr_X \colon \cN((\omg/X)^\otimes)\to X$ is a weak equivalence in the stable model structure for $\dsets$.
+For any normal dendroidal set $X$, the root functor $\scriptr_X \colon \cN(\omg/X)^\otimes\to X$ is a weak equivalence in the stable model structure for $\dsets$.
+
+\noindent In particular, when $X$ is a simplicial set this gives an equivalence of weak homotopy types $\cN(\Delta/X)\xrightarrow{\sim}X$.
 \end{coro}
 
-\noindent Specializing the above results to simplicial sets, we hence obtain the following well-known results.
+\begin{rmk}\label{rmk:smcat}
+When $X$ is a symmetric monoidal $\infty$-category, \cite{A:MRCMMIC} guarantees
+the existence of a discrete symmetric monoidal category localizing at $X$. The question becomes whether such an equivalence can still be realized via the root functor, notably via its adjoint map $\cN(\mathsf{Env}(\omg/X))^\otimes\to X,$ a functor of symmetric monoidal $\infty$-categories from the envelope of $(\omg/X)^\otimes$ (still discrete), into $X$. 
 
-\begin{coro}[{Joyal \cite{J:NQC}, Stevenson \cite{Ste:CMSSL}}]
-	For any simplicial set $M$, the last vertex functor induces a categorical weak equivalence $$ \Delta/M[\cR^{-1}_M]\xlongrightarrow{\sim} M,$$ where $\cR_M$ is the class of morphisms $f\colon ([n],\alpha)\to ([m],\beta)$ such that $f(n)=m$.
-	
-	\noindent In particular, the last vertex functor $\Delta/M\to M$ is a weak homotopy equivalence.
-\end{coro}
-
-
-
-\begin{rmk}\label{rmk:smcat} It is natural to ask what happens when $X$ is a symmetric monoidal $\infty$-category. In the dendroidal formalism, this corresponds to being a coCartesian fibration over the terminal object, see \cite{He:AOIO}. By \cite{A:MRCMMIC}, we abstractly know that for every such $X$ there exists a relative discrete symmetric monoidal category which localizes at $X$. The question becomes whether this equivalence can be realized by means of the root functor.
-	
-\noindent The operad $(\omg/X)^\otimes$ does not have a symmetric monoidal structure when $X$ is symmetric monoidal. One can then consider the map induced by adjunction $\mathsf{Env}((\omg/X)^\otimes)\to X$ from the envelope of $(\omg/X)^\otimes$ (still discrete) into $X$, and ask whether this is a localization of symmetric monoidal categories. However, it is easy to see that this holds if and only if $X$ is itself equivalent to its envelope, $X\simeq \mathsf{Env}(UX)$ \footnote{Observe here we need to change model and consider Lurie $\infty$-operads, as there is no homotopical notion of dendroidal envelope yet (see \cite{B:RCPCCDA}).}. 
-\noindent However, when $X$ is symmetric monoidal, $(\omg/X)^\otimes$ has a partial monoidal structure: it is a \emph{pre-coCartesian operad}, in the sense of \cite{KSW:ACFA}. It would be interesting to explore further this direction\todo[color=blue!25]{here expand: we know the result!}.
+\noindent In fact, it is immediate to see that the operad $(\Omega/X)^\otimes$
+does not inherit a symmetric monoidal structure when $X$ is symmetric monoidal itself. However, it can be seen that it naturally carries a
+\emph{pre-coCartesian} structure in the sense of \cite{KSW:ACFA}, and in ongoing work we show that this structure can be exploited to prove that in this case $X$ is equivalent, as a symmetric monoidal $\infty$-category, to a localization of the envelope $\mathsf{Env}(\omg/X)^\otimes$ of its operad of elements (at a larger class of morphisms than the root preserving ones.)
 \end{rmk}
 
 
@@ -1380,7 +1376,7 @@ For any normal dendroidal set $X$, the root functor $\scriptr_X \colon \cN((\omg
 	fiber over an object $c$ of $P$ of the unstraightening of an algebra $F$ and evaluation of $F$ at $c$.
 	\end{rmk}
 \noindent As a corollary, by instantiating Proposition \ref{fibobjs} with $P=(\omg/X)^\otimes$, which is  $\Sigma$-free (Remark \ref{rmk:sfree}), we obtain a new version of the un/straightening equivalence for a normal dendroidal $\infty$-operad $X$, that is an equivalence of semi-model categories
-$$\adjunction{\rho_!^{(\omg/X)^\otimes}}{ \cL_{\cR_X}\left(\dsets/\cN_d((\omg/X)^\otimes)\right)}{\cL_{\cR_X}\left(\alg_{(\omg/X)^\otimes}(\ssets)\right)}{\rho^*_{(\omg/X)^\otimes}}$$ between the covariant model structure for $\cR_X$-local dendroidal left fibrations over $\cN_d \omg/X$ and the projective semi-model structure for $\cR_X$-locally constant $(\omg/X)^\otimes$-algebras.
+$$\adjunction{\rho_!^{(\omg/X)^\otimes}}{ \cL_{\cR_X}\left(\dsets/\cN_d(\omg/X)^\otimes\right)}{\cL_{\cR_X}\left(\alg_{(\omg/X)^\otimes}(\ssets)\right)}{\rho^*_{(\omg/X)^\otimes}}$$ between the covariant model structure for $\cR_X$-local dendroidal left fibrations over $\cN_d \omg/X$ and the projective semi-model structure for $\cR_X$-locally constant $(\omg/X)^\otimes$-algebras.
 
 \noindent We may interpret this as a 'local' un/straightening equivalence. As a corollary, we deduce the following local description for algebras.
 \begin{coro}\label{corofip}
@@ -1388,7 +1384,7 @@ $$\adjunction{\rho_!^{(\omg/X)^\otimes}}{ \cL_{\cR_X}\left(\dsets/\cN_d((\omg/X)
 	Let $X$ be a normal dendroidal $\infty$-operad. There is a zig-zag of Quillen equivalences $$ \alg_{W_!(X)}(\ssets)\xleftarrow{\sim}\bullet\xrightarrow{\sim}\cL_{\cR_X}\left(\alg_{(\omg/X)^\otimes}(\ssets)\right)$$ between the projective model structures for simplicial $W_!(X)$-algebras and for $\cR_X$-locally constant algebras on $(\omg/X)^\otimes$.
 	\end{coro}
 \begin{proof}
-By \cite[Proposition 2.4]{He:AOIO}, if $f\colon X \to Y$ is an operadic weak equivalence between normal dendroidal sets, the induced adjunction $(f_!,f^*)$ on over categories is a Quillen equivalence between covariant model structures. As this is natural in the dendroidal sets, applying \Cref{fibobjs} we obtain that the root functor yields a Quillen equivalence $$\adjunction{(\scriptr_X)_!}{\cL_{\cR_X}\left(\dsets/\cN_d((\omg/X)^\otimes)\right) }{\dsets/X}{\scriptr_X^*}. $$ Combining this with Proposition \ref{fibobjs} and the classical \cite[Theorem 2.7]{He:AOIO}, we get the wanted zig-zag of Quillen equivalences of semi-model categories.
+By \cite[Proposition 2.4]{He:AOIO}, if $f\colon X \to Y$ is an operadic weak equivalence between normal dendroidal sets, the induced adjunction $(f_!,f^*)$ on over categories is a Quillen equivalence between covariant model structures. As this is natural in the dendroidal sets, applying \Cref{fibobjs} we obtain that the root functor yields a Quillen equivalence $$\adjunction{(\scriptr_X)_!}{\cL_{\cR_X}\left(\dsets/\cN_d(\omg/X)^\otimes\right) }{\dsets/X}{\scriptr_X^*}. $$ Combining this with Proposition \ref{fibobjs} and the classical \cite[Theorem 2.7]{He:AOIO}, we get the wanted zig-zag of Quillen equivalences of semi-model categories.
 \end{proof}
 
 
